@@ -55,7 +55,7 @@ export default function UpdatePassword() {
         return Object.keys(next).length === 0;
     }
 
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         setIsSuccess(false);
 
