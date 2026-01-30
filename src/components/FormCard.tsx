@@ -1,4 +1,5 @@
 import {FormProps} from "@/types/FormProps";
+import {getSupabaseErrorMessage} from "@/lib/supabase/utils";
 
 export function FormCard({children, isLoading,　isSuccess, successMessage, errors, title, subtitle} : FormProps) {
     return (
@@ -28,7 +29,7 @@ export function FormCard({children, isLoading,　isSuccess, successMessage, erro
 
             {errors?.api ? (
                 <div className="bg-red-100 border-1 rounded-lg border-red-500 text-red-700 p-4 mb-4" role="alert">
-                    <p>{ errors.api }</p>
+                    <p>{ getSupabaseErrorMessage(errors.api) }</p>
                 </div>
             ) : null}
 
