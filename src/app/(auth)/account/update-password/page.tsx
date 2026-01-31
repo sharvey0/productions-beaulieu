@@ -4,6 +4,7 @@ import {createClient} from "@/lib/supabase/client";
 import * as React from "react";
 import {useRouter} from "next/navigation";
 import {FormCard} from "@/components/FormCard";
+import {FormInput} from "@/components/FormInput";
 
 const supabase = createClient();
 
@@ -84,69 +85,44 @@ export default function UpdatePassword() {
             subtitle="Entrez votre adresse courriel"
         >
             <form onSubmit={onSubmit} className="space-y-4">
-                <div>
-                    <label htmlFor="email" className="text-sm font-medium text-slate-900">
-                        Adresse courriel
-                    </label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="text"
-                        autoComplete="email"
-                        value={form.email}
-                        onChange={onChange}
-                        className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
-                        placeholder="Votre adresse courriel"
-                    />
-                    {errors.email ? (
-                        <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                    ) : null}
-                </div>
+                <FormInput
+                    title="Adresse courriel"
+                    id="email"
+                    type="text"
+                    autoComplete="email"
+                    value={form.email}
+                    placeholder="Votre adresse courriel"
+                    onChange={onChange}
+                    error={errors.email}
+                />
 
-                <div>
-                    <label htmlFor="password" className="text-sm font-medium text-slate-900">
-                        Nouveau mot de passe
-                    </label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autoComplete="password"
-                        value={form.password}
-                        onChange={onChange}
-                        className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
-                        placeholder="••••••••"
-                    />
-                    {errors.password ? (
-                        <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-                    ) : null}
-                </div>
+                <FormInput
+                    title="Nouveau mot de passe"
+                    id="password"
+                    type="password"
+                    autoComplete="new-password"
+                    value={form.password}
+                    placeholder="Mot de passe"
+                    onChange={onChange}
+                    error={errors.password}
+                    isPassword={true}
+                />
 
-                <div className="mb-7">
-                    <label
-                        htmlFor="confirmPassword"
-                        className="text-sm font-medium text-slate-900"
-                    >
-                        Confirmez le mot de passe
-                    </label>
-                    <input
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        autoComplete="new-password"
-                        value={form.confirmPassword}
-                        onChange={onChange}
-                        className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
-                        placeholder="••••••••"
-                    />
-                    {errors.confirmPassword ? (
-                        <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
-                    ) : null}
-                </div>
+                <FormInput
+                    title="Confirmez le mot de passe"
+                    id="confirmPassword"
+                    type="confirmPassword"
+                    autoComplete="new-password"
+                    value={form.confirmPassword}
+                    placeholder="Confirmation du mot de passe"
+                    onChange={onChange}
+                    error={errors.confirmPassword}
+                    isPassword={true}
+                />
 
                 <button
                     type="submit"
-                    className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-300 cursor-pointer disabled:bg-slate-500"
+                    className="mt-2 w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-300 cursor-pointer disabled:bg-slate-500"
                     disabled={ isLoading }
                 >
                     Changer le mot de passe

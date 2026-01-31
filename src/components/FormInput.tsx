@@ -21,10 +21,8 @@ export function FormInput({ title, id, type, autoComplete, value, placeholder, o
                 name={id}
                 type={
                     isPassword ?
-                        isPasswordVisible?
-                            "text" : "password"
-                        :
-                        type
+                        isPasswordVisible ? "text" : "password"
+                        : type
                 }
                 autoComplete={autoComplete}
                 value={value}
@@ -41,7 +39,7 @@ export function FormInput({ title, id, type, autoComplete, value, placeholder, o
             }
 
             {error ? (
-                <p className={"text-sm text-red-600 " + (isPassword ? "-mt-4" : "mt-1")}>{error}</p>
+                <p className={"text-sm text-red-600 " + (isPassword ? "-mt-4 mb-4.5" : "mt-1")}>{error}</p>
             ) : null}
         </div>
 
