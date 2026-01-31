@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 
-export type FormProps = {
+export type FormCardProps = {
     children: ReactNode,
     isLoading: boolean,
     isSuccess?: boolean,

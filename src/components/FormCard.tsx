@@ -1,7 +1,7 @@
-import {FormProps} from "@/types/FormProps";
+import {FormCardProps} from "@/types/FormCardProps";
 import {getSupabaseErrorMessage} from "@/lib/supabase/utils";
 
-export function FormCard({children, isLoading,　isSuccess, successMessage, errors, title, subtitle} : FormProps) {
+export function FormCard({children, isLoading,　isSuccess, successMessage, errors, title, subtitle} : FormCardProps) {
     return (
         <div style={ isLoading ? {filter: "opacity(50%)"} : undefined }>
 
