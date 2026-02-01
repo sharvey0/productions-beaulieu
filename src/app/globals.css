@@ -3,15 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --Pearl-aqua: #75dddd;
-  --Pacific-cyan: #508991;
-  --Deep-space-blue: #172a3a;
-  --Dark-teal: #004346;
-  --Mint-leaf: #09bc8a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white;
+  }
 }

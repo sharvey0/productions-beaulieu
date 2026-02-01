@@ -1,18 +1,31 @@
 import Link from "next/link";
+import { FaInstagram } from 'react-icons/fa';
+import {MdEmail} from "react-icons/md";
 
 export function Header() {
     return (
-        <header className="w-screen bg-white shadow-md px-8 py-4 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">P</div>
-                <span className="text-2xl font-semibold text-gray-800">Placeholder</span>
+        <header className="absolute top-0 left-0 w-full z-50 flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-4 md:py-10 bg-transparent gap-4 md:gap-0">
+            <div className="flex items-center gap-2 cursor-pointer mt-2 md:mt-0">
+                <div className="flex items-center">
+                    <span className="text-2xl md:text-4xl font-bold tracking-tight text-white whitespace-nowrap">Productions Beaulieu</span>
+                </div>
             </div>
 
-            <nav className="hidden md:flex items-center gap-8">
-                <Link href="#" className="text-gray-700 hover:text-gray-900 font-medium transition">Évènements</Link>
-                <Link href="#" className="text-gray-700 hover:text-gray-900 font-medium transition">Rendez-vous</Link>
-                <Link href="#" className="text-gray-700 hover:text-gray-900 font-medium transition">Contactez-nous</Link>
+            <nav className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 md:gap-x-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                <Link href="/" className="text-white hover:text-red-600 font-semibold transition uppercase text-[10px] md:text-xs tracking-[0.2em]">Accueil</Link>
+                <Link href="#" className="text-white hover:text-red-600 font-semibold transition uppercase text-[10px] md:text-xs tracking-[0.2em]">Réservez</Link>
+                <Link href="#" className="text-white hover:text-red-600 font-semibold transition uppercase text-[10px] md:text-xs tracking-[0.2em]">Nous-contacter</Link>
+                <Link href="#" className="text-white hover:text-red-600 font-semibold transition uppercase text-[10px] md:text-xs tracking-[0.2em]">À propos</Link>
             </nav>
+
+            <div className="flex items-center gap-5">
+                <Link href="mailto:productionsbeaulieu@gmail.com" target="_blank"  className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <MdEmail size={14} />
+                </Link>
+                <Link href="https://www.instagram.com/productions_beaulieu/" target="_blank" className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                    <FaInstagram size={16} />
+                </Link>
+            </div>
         </header>
     );
 }

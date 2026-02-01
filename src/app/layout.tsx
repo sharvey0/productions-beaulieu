@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "My Music Site",
-  description: "Booking and performance details",
+  title: "Productions Beaulieu",
+  description: "Réservez des prestations musicales à votre goût et facilement.",
 };
 
 export default function RootLayout({
@@ -15,15 +13,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body>
-        <div className="site-root">
-
-          <Header />
-
-          <main className="site-main">{children}</main>
-
-          <Footer />
-        </div>
+      <body className="antialiased">
+        {children}
       </body>
     </html>
   );
