@@ -31,11 +31,13 @@ export default function UpdatePassword() {
         if (error) {
             setErrors(prevState => ({ ...prevState, "api": error.code! }));
         } else {
+            await fetch("/account/update-password/clear-flag", { method: "POST" });
+
             setIsSuccess(true);
 
             setTimeout(() => {
                 router.push('/dashboard');
-            }, 1400);
+            }, 2400);
         }
     }
 

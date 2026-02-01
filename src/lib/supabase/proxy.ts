@@ -43,12 +43,10 @@ export async function updateSession(request: NextRequest) {
         pathname.startsWith('/reset-password') ||
         pathname.startsWith('/auth')
 
-    console.log("user:" + user)
-    console.log("notconnected:" + isAllowedWhenNotConnected)
-
     if (!user && !isAllowedWhenNotConnected) {
         const url = request.nextUrl.clone()
         url.pathname = '/login'
+        url.search = ''
         return NextResponse.redirect(url)
     }
 
@@ -57,12 +55,22 @@ export async function updateSession(request: NextRequest) {
         !pathname.startsWith('/register') &&
         !pathname.startsWith('/reset-password')
 
-    console.log("connected:" + isAllowedWhenConnected)
-
-    // Connected
     if (user && !isAllowedWhenConnected) {
         const url = request.nextUrl.clone()
         url.pathname = '/'
+        url.search = ''
+        return NextResponse.redirect(url)
+    }
+
+    const needsPasswordUpdate = request.cookies.get("needs_password_update")?.value === "1";
+    const isAllowedDuringPasswordUpdate =
+        pathname.startsWith('/account/update-password') ||
+        pathname.startsWith('/auth')
+
+    if (needsPasswordUpdate && !isAllowedDuringPasswordUpdate) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/account/update-password'
+        url.search = ''
         return NextResponse.redirect(url)
     }
 
