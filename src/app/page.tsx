@@ -15,16 +15,15 @@ export default function Home() {
           className="opacity-60 brightness-[0.5] md:brightness-[0.7]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80"></div>
       </div>
 
       <Header />
 
       <div className="relative z-10 flex min-h-[calc(100vh-100px)] flex-col items-center justify-center pt-32 pb-12 px-4">
-
         <div className="relative group cursor-default text-center">
            <h1 className="text-6xl sm:text-8xl md:text-[10rem] lg:text-[12rem] font-bold tracking-widest text-white uppercase opacity-90 select-none transition-all duration-700 md:group-hover:tracking-[0.15em]">
-             Jsp El Gros
+             Musique
            </h1>
         </div>
       </div>
