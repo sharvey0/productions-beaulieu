@@ -46,7 +46,7 @@ export async function updateSession(request: NextRequest) {
     if (!user && !isAllowedWhenNotConnected) {
         const url = request.nextUrl.clone()
         url.pathname = '/login'
-        url.search = ''
+        url.search = 'next=' + request.nextUrl.pathname
         return NextResponse.redirect(url)
     }
 
