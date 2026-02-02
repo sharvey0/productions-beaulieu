@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --accent: #E13333;
 }
 
 body {
@@ -41,7 +42,7 @@ body {
     animation: l9-1 .5s linear infinite;
 }
 @keyframes l9-0 {
-    0%,2%  {translate: 0   0%}
+    0%,2%  {translate: 0   0}
     98%,to {translate: 0 -.2%}
 }
 @keyframes l9-1 {

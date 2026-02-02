@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full bg-black text-white selection:bg-red-600/30">
+    <main className="relative min-h-screen w-full bg-black text-white">
       <div className="fixed inset-0 z-0">
         <Image
           src="/img/homepage.jpg"
@@ -33,7 +33,7 @@ export default function Home() {
           <div className="relative w-16 h-16 md:w-24 md:h-24 overflow-hidden border-2 border-white/20">
             <Image 
               src="/img/homepage.jpg"
-              alt="Frando Kally" 
+              alt="Dernière démo"
               fill 
               sizes="(max-width: 768px) 64px, 96px"
               style={{ objectFit: 'cover' }} 
@@ -47,7 +47,7 @@ export default function Home() {
         </div>
 
         <div className="w-full md:w-auto">
-          <button className="cursor-pointer w-full md:w-auto px-8 md:px-10 py-3 md:py-4 border border-red-600 text-red-600 uppercase font-bold text-xs md:text-sm tracking-[0.2em] hover:bg-red-600 hover:text-white transition-all duration-300">
+          <button className="cursor-pointer w-full md:w-auto px-8 md:px-10 py-3 md:py-4 border border-[var(--accent)] text-[var(--accent)] uppercase font-bold text-xs md:text-sm tracking-[0.2em] hover:bg-[var(--accent)] hover:text-white transition-all duration-300">
             Démos
           </button>
         </div>
