@@ -1,4 +1,5 @@
-import {SupabaseErrorMessages} from "@/enums/SupabaseErrorMessages";
+import {SupabaseErrorMessages} from "@/enums/supabase/SupabaseErrorMessages";
+import {DemoAudioNames} from "@/enums/supabase/DemoAudioNames";
 
 export function getSupabaseErrorMessage(errorCode: string) : string {
     if (errorCode in SupabaseErrorMessages) {
@@ -6,4 +7,12 @@ export function getSupabaseErrorMessage(errorCode: string) : string {
     }
 
     return SupabaseErrorMessages.default + " (" + errorCode + ")";
+}
+
+export function getDemoAudioFileName(filePath: string) : string {
+    if (filePath in DemoAudioNames) {
+        return DemoAudioNames[filePath as keyof typeof DemoAudioNames];
+    }
+
+    return filePath.replace('.opus', '');
 }

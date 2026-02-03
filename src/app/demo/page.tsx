@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import { Header } from "@/components/Header";
 import { FileObject } from "@/types/FileObject";
 import {loadAllDemoAudioFiles} from "@/lib/supabase/bucket";
+import {getDemoAudioFileName} from "@/lib/supabase/utils";
 
 export default function Demo() {
     const [files, setFiles] = useState<FileObject[] | undefined>();
@@ -33,7 +34,7 @@ export default function Demo() {
                 {!loading && files && files.length > 0 && (
                     <ul>
                         {files.map((f: FileObject) => (
-                            <li key={f.name}>{f.name} <audio controls src={f.url} /></li>
+                            <li key={f.name}>{getDemoAudioFileName(f.name)} <audio controls src={f.url} /></li>
                         ))}
                     </ul>
                 )}
