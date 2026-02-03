@@ -1,33 +1,23 @@
 import {createClient} from "@/lib/supabase/client";
-import { FileObject } from "@/types/FileObject";
+import {FileObject} from "@/types/FileObject";
 
-export async function loadAllAudioFiles() {
+export async function loadAllDemoAudioFiles() {
     const supabase = createClient();
-    const { data: folders, error: folderError } = await supabase
+    const bucketPublicURL = "https://odsdfqrwfaioqstxalpg.supabase.co/storage/v1/object/public/demo-bucket/";
+
+    const { data: files, error: fileError } = await supabase
         .storage
         .from('demo-bucket')
-        .list(''); 
+        .list('');
 
-    if (folderError) {
-        console.error('Folder error:', folderError);
+    if (fileError) {
+        console.error('File error: ', fileError);
         return;
     }
 
-    const allFiles = await Promise.all(folders.map(async (folder) => {
-        const { data, error } = await supabase
-            .storage
-            .from('demo-bucket')
-            .list(folder.name + '/audio'); 
-
-        if (error) {
-            console.error(`Error fetching files from ${folder.name}:`, error);
-            return [];
-        }
-        return data.map(file => ({
-            ...file,
-            url: supabase.storage.from('demo-bucket').getPublicUrl(folder.name + '/audio/' + file.name).data.publicUrl
-        }));
+    const result: FileObject[] = (files ?? []).map((file) => ({
+        name: file.name,
+        url: bucketPublicURL + file.name
     }));
-
-    return allFiles.flat() as FileObject[];
+    return result
 }

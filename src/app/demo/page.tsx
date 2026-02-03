@@ -1,19 +1,28 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import { Header } from "@/components/Header";
-import { loadAllAudioFiles } from "@/lib/supabase/bucket";
 import { FileObject } from "@/types/FileObject";
+import {loadAllDemoAudioFiles} from "@/lib/supabase/bucket";
 
 export default function Demo() {
-    const [files, setFiles] = useState<FileObject[]>([]);
+    const [files, setFiles] = useState<FileObject[] | undefined>();
     const [loading, setLoading] = useState<boolean>(true);
 
+    useEffect(() => {
+        let cancelled = false;
 
-    loadAllAudioFiles().then(() => {
-            setLoading(false);
-        }
-    );
+        (async () => {
+            setLoading(true);
+            setFiles(await loadAllDemoAudioFiles());
+            if (!cancelled) setLoading(false);
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+
+    }, []);
 
     return (
         <main className="relative min-h-screen w-full pt-24 md:pt-28 bg-black text-white selection:bg-red-600/30">
