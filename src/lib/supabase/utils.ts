@@ -16,3 +16,20 @@ export function getDemoAudioFileName(filePath: string) : string {
 
     return filePath.replace('.opus', '');
 }
+
+export function getDemoImgFileName(filePath: string): string {
+    const imgPath = "/img/"
+    const imageMap: Record<string, string> = {
+        "Noël": "noel.jpg",
+        "Jazz": "jazz.jpg",
+        "Pop": "pop.jpg"
+    };
+
+    for (const keyword in imageMap) {
+        if (filePath.includes(keyword)) {
+            return imgPath + imageMap[keyword];
+        }
+    }
+
+    return imgPath + "jeux_video.jpg";
+}
