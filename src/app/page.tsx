@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Header } from "@/components/Header";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -47,9 +48,9 @@ export default function Home() {
         </div>
 
         <div className="w-full md:w-auto">
-          <button className="cursor-pointer w-full md:w-auto px-8 md:px-10 py-3 md:py-4 border border-red-600 text-red-600 uppercase font-bold text-xs md:text-sm tracking-[0.2em] hover:bg-red-600 hover:text-white transition-all duration-300">
+          <Link href="/demo" className="cursor-pointer w-full md:w-auto px-8 md:px-10 py-3 md:py-4 border border-red-600 text-red-600 uppercase font-bold text-xs md:text-sm tracking-[0.2em] hover:bg-red-600 hover:text-white transition-all duration-300">
             Démos
-          </button>
+          </Link>
         </div>
       </div>
     </main>
