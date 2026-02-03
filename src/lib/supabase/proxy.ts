@@ -41,7 +41,8 @@ export async function updateSession(request: NextRequest) {
         pathname.startsWith('/login') ||
         pathname.startsWith('/register') ||
         pathname.startsWith('/reset-password') ||
-        pathname.startsWith('/auth')
+        pathname.startsWith('/auth') ||
+        pathname.startsWith('/demo')
 
     if (!user && !isAllowedWhenNotConnected) {
         const url = request.nextUrl.clone()
