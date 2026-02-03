@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Head from "next/head";
+import {ReactNode} from "react";
 
 export const metadata: Metadata = {
   title: "Productions Beaulieu",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="fr">
