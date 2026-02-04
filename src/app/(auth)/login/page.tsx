@@ -55,12 +55,9 @@ export function LoginPageContent() {
 
         const next = searchParams.get("next");
 
-        console.log(next);
-
         setIsLoading(false);
 
         if (!error) {
-            console.log("ok");
             router.push(next ? next : "/", );
         } else {
             setErrors(prevState => ({ ...prevState, "api": error.code! }));
