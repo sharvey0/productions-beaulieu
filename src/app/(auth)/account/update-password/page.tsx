@@ -2,7 +2,6 @@
 
 import {createClient} from "@/lib/supabase/client";
 import * as React from "react";
-import {useRouter} from "next/navigation";
 import {FormCard} from "@/components/FormCard";
 import {FormInput} from "@/components/FormInput";
 
@@ -17,7 +16,6 @@ export default function UpdatePassword() {
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = React.useState(false);
     const [isSuccess, setIsSuccess] = React.useState(false);
-    const router = useRouter();
 
     async function resetPassword() {
         const { data: { user } } = await supabase.auth.getUser();
@@ -36,7 +34,7 @@ export default function UpdatePassword() {
             setIsSuccess(true);
 
             setTimeout(() => {
-                router.push('/dashboard');
+                window.location.href = "/dashboard";
             }, 2400);
         }
     }
