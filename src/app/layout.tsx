@@ -20,7 +20,6 @@ export default function RootLayout({
     <Analytics />
     <SpeedInsights />
       <body className="antialiased">
-        <Header />
         {children}
       </body>
     </html>

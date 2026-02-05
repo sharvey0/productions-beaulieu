@@ -2,6 +2,9 @@ import {Header} from "@/components/Header";
 import {ReactNode} from "react";
 
 export default function AuthLayout({ children }:  Readonly<{ children: ReactNode; }>) {
+    const ignoredPath = ['/account'];
+
+
     return (
         <div>
             <Header showOnlyLogo={true} />
