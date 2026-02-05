@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {ReactNode} from "react";
+import {Header} from "@/components/Header";
+import {SpeedInsights} from "@vercel/speed-insights/next";
+import {Analytics} from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Productions Beaulieu",
@@ -14,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
+    <Analytics />
+    <SpeedInsights />
       <body className="antialiased">
+        <Header />
         {children}
       </body>
     </html>
