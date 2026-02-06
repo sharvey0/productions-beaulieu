@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
+import {AboutUs} from "@/components/AboutUs";
+import {Footer} from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -29,7 +31,7 @@ export default function Home() {
                   </div>
               </div>
 
-              <div className="relative md:absolute md:bottom-10 left-0 w-full px-6 md:px-12 z-20 flex flex-col md:flex-row justify-between items-center md:items-end gap-8 md:gap-0 pb-10 md:pb-0">
+              <div className="relative md:absolute md:bottom-10 left-0 w-full px-6 md:px-12 z-20 flex flex-col md:flex-row justify-between items-center md:items-end gap-12 md:gap-0 pb-10 md:pb-0">
                   <div className="flex items-center gap-4 md:gap-6">
                       <div className="relative w-16 h-16 md:w-24 md:h-24 overflow-hidden border-2 border-white/20">
                           <Image
@@ -47,13 +49,15 @@ export default function Home() {
                       </div>
                   </div>
 
-                  <div className="w-full md:w-auto">
+                  <div className="w-auto">
                       <Link href="/demo" className="cursor-pointer w-full md:w-auto px-8 md:px-10 py-3 md:py-4 border border-[var(--accent)] text-[var(--accent)] uppercase font-bold text-xs md:text-sm tracking-[0.2em] hover:bg-[var(--accent)] hover:text-white transition-all duration-300">
                           Démos
                       </Link>
                   </div>
               </div>
           </main>
+          <AboutUs />
+          <Footer />
       </div>
   );
 }

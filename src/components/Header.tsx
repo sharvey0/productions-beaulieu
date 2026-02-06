@@ -26,7 +26,7 @@ export function Header({ showOnlyLogo = false }: HeaderProps) {
                         <Link href="/" className="text-white hover:text-[var(--accent)] font-semibold transition-colors uppercase text-[10px] lg:text-xs tracking-[0.2em]">Accueil</Link>
                         <Link href="/book" className="text-white hover:text-[var(--accent)] font-semibold transition-colors uppercase text-[10px] lg:text-xs tracking-[0.2em]">Réservez</Link>
                         <Link href="/contact" className="text-white hover:text-[var(--accent)] font-semibold transition-colors uppercase text-[10px] lg:text-xs tracking-[0.2em]">Nous-contacter</Link>
-                        <Link href="/about-us" className="text-white hover:text-[var(--accent)] font-semibold transition-colors uppercase text-[10px] lg:text-xs tracking-[0.2em]">À propos</Link>
+                        <Link href="/#about-us" className="text-white hover:text-[var(--accent)] font-semibold transition-colors uppercase text-[10px] lg:text-xs tracking-[0.2em]">À propos</Link>
                     </nav>
 
                     <div className="flex items-center gap-5 lg:mt-0 mt-3">

@@ -1,37 +1,79 @@
 import Link from "next/link";
+import {FaInstagram} from "react-icons/fa";
+import {MdEmail} from "react-icons/md";
+import Image from "next/image";
 
 export function Footer() {
     return (
-        <footer className="w-full bg-white text-gray-700 py-8 px-8 mt-12 shadow-md">
-            <div className="max-w-6xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                    <div>
-                        <h3 className="text-purple-900 font-bold text-lg mb-4">Productions Beaulieu</h3>
-                        <p className="text-sm text-gray-600">Services de musique professionnels pour vos événements</p>
+        <footer className="relative z-10 w-full bg-black border-t border-white/10 py-16 px-6 lg:px-12 text-white">
+            <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <div className="md:col-span-2">
+                        <Link href="/" className="inline-block mb-6">
+                            <Image
+                                src="/logo/prod_beaulieu_logo.png"
+                                alt="Logo"
+                                width={200}
+                                height={54}
+                                className="w-48 brightness-100"
+                            />
+                        </Link>
+                        <p className="text-zinc-500 max-w-sm leading-relaxed">
+                            Services de musique professionnels pour vos événements.
+                            Nous créons l&#39;ambiance parfaite pour vos moments inoubliables.
+                        </p>
                     </div>
+
                     <div>
-                        <h4 className="text-purple-900 font-semibold mb-4">Navigation</h4>
-                        <ul className="space-y-2 text-sm">
-                            <li><a href="#" className="text-gray-600 hover:text-purple-900 transition">Évènements</a></li>
-                            <li><a href="#" className="text-gray-600 hover:text-purple-900 transition">Rendez-vous</a></li>
-                            <li><a href="#" className="text-gray-600 hover:text-purple-900 transition">Contactez-nous</a></li>
+                        <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Navigation</h4>
+                        <ul className="space-y-4 text-sm text-zinc-400">
+                            <li><Link href="/" className="hover:text-[var(--accent)] transition-colors">Accueil</Link></li>
+                            <li><Link href="/book" className="hover:text-[var(--accent)] transition-colors">Réservez</Link></li>
+                            <li><Link href="/contact" className="hover:text-[var(--accent)] transition-colors">Contactez-nous</Link></li>
+                            <li><Link href="/#about-us" className="hover:text-[var(--accent)] transition-colors">À propos</Link></li>
                         </ul>
                     </div>
+
                     <div>
-                        <h4 className="text-purple-900 font-semibold mb-4">Contact</h4>
-                        <p className="text-sm text-gray-600">Email: productionsbeaulieu@gmail.com</p>
-                        <p className="text-sm text-gray-600">Téléphone: (450) XXX-XXXX</p>
-                        <div className="mt-4 flex items-center gap-4">
-                            <Link href="https://www.instagram.com/productions_beaulieu/" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-900 transition">
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
-                                </svg>
-                            </Link>
+                        <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Contact</h4>
+                        <div className="space-y-4">
+                            <a href="mailto:productionsbeaulieu@gmail.com" className="flex items-center gap-3 text-sm text-zinc-400 hover:text-[var(--accent)] transition-colors">
+                                <MdEmail className="text-[var(--accent)] w-5 h-5 rounded-full" />
+                                productionsbeaulieu@gmail.com
+                            </a>
+                            <div className="flex gap-4 pt-2">
+                                <Link
+                                    href="https://www.instagram.com/productions_beaulieu/"
+                                    target="_blank"
+                                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"
+                                >
+                                    <FaInstagram size={18} />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="border-t border-gray-300 pt-8 text-center text-sm text-gray-500">
-                    © {new Date().getFullYear()} Productions Beaulieu — Tous droits réservés.
+
+                <div className="border-t border-white/5 pt-8 font-semibold flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500 uppercase tracking-[0.2em]">
+                    <p>© {new Date().getFullYear()} Productions Beaulieu — Tous droits réservés.</p>
+                    <p>
+                        Fait avec passion par {" "}
+                        <a
+                            href="https://github.com/sharvey0"
+                            className="underline underline-offset-2"
+                            target="_blank"
+                        >
+                            Samuel Harvey
+                        </a>
+                        {" et "}
+                        <a
+                            href="https://github.com/edupont16"
+                            className="underline underline-offset-2"
+                            target="_blank"
+                        >
+                            Édouard Dupont
+                        </a>
+                    </p>
                 </div>
             </div>
         </footer>
