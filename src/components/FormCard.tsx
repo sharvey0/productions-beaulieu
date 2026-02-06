@@ -1,5 +1,6 @@
 import {FormCardProps} from "@/types/FormCardProps";
 import {getSupabaseErrorMessage} from "@/lib/supabase/utils";
+import * as React from "react";
 
 export function FormCard(
     {
@@ -15,8 +16,8 @@ export function FormCard(
         <div className="rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
             {
                 isLoading ?
-                    <div className="absolute flex items-center justify-center inset-0 z-50">
-                        <div className="loader"></div>
+                    <div className="absolute inset-0 z-10 flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--accent)]"></div>
                     </div> : null
             }
 
