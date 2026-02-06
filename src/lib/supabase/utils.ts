@@ -1,8 +1,6 @@
 import {SupabaseErrorMessages} from "@/enums/supabase/SupabaseErrorMessages";
 import {DemoAudioNames} from "@/enums/supabase/DemoAudioNames";
-import { DemoAudioCategoryMap } from "@/enums/supabase/DemoAudioCategory";
-import type { DemoAudioCategory } from "@/enums/supabase/DemoAudioCategory";
-import { DemoObject } from "@/types/DemoObject";
+import { DemoAudioCategoryNames } from "@/enums/supabase/DemoAudioCategoryNames";
 
 export function getSupabaseErrorMessage(errorCode: string) : string {
     if (errorCode in SupabaseErrorMessages) {
@@ -18,4 +16,12 @@ export function getDemoAudioFileName(filePath: string) : string {
     }
 
     return filePath.replace('.opus', '');
+}
+
+export function getDemoCategoryName(category: string): string {
+    if (category in DemoAudioCategoryNames) {
+        return DemoAudioCategoryNames[category as keyof typeof DemoAudioCategoryNames];
+    }
+
+    return category;
 }

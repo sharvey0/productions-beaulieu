@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Header } from "@/components/Header";
 import { DemoObject } from "@/types/DemoObject";
 import { loadAllDemoAudioFiles } from "@/lib/supabase/bucket";
+import { getDemoCategoryName } from "@/lib/supabase/utils";
 
 export default function Demo() {
   const [groupedFiles, setGroupedFiles] = useState<
@@ -52,7 +53,7 @@ export default function Demo() {
           <div>
             {categories.map((category: string) => (
               <div key={category}>
-                <h2 className="text-4xl font-bold mt-10 mb-4">{category}</h2>
+                <h2 className="text-6xl font-bold mt-10 mb-4">{getDemoCategoryName(category)}</h2>
                 <ul className="flex flex-col gap-6">
                   {(groupedFiles[category] || []).map((file: DemoObject) => (
                     <li key={file.name}>
