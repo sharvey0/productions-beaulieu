@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaInstagram } from 'react-icons/fa';
+import {FaInstagram} from 'react-icons/fa';
 import {MdEmail, MdPerson} from "react-icons/md";
 import Image from "next/image";
 import {HeaderProps} from "@/types/HeaderProps";

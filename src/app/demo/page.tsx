@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
-import { Header } from "@/components/Header";
-import { DemoObject } from "@/types/DemoObject";
-import { loadAllDemoAudioFiles } from "@/lib/supabase/bucket";
-import { getDemoCategoryName } from "@/lib/supabase/utils";
+import {Header} from "@/components/Header";
+import {DemoObject} from "@/types/DemoObject";
+import {loadAllDemoAudioFiles} from "@/lib/supabase/bucket";
+import {getDemoCategoryName} from "@/lib/supabase/utils";
 
 export default function Demo() {
   const [groupedFiles, setGroupedFiles] = useState<

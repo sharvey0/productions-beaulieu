@@ -1,8 +1,8 @@
 import {createClient} from "@/lib/supabase/client";
 import {DemoObject} from "@/types/DemoObject";
-import { getDemoAudioFileName } from "./utils";
-import { DemoAudioCategoryMap } from "@/enums/supabase/DemoAudioCategory";
-import type { DemoAudioCategory } from "@/enums/supabase/DemoAudioCategory";
+import {getDemoAudioFileName} from "./utils";
+import type {DemoAudioCategory} from "@/enums/supabase/DemoAudioCategory";
+import {DemoAudioCategoryMap} from "@/enums/supabase/DemoAudioCategory";
 
 export async function loadAllDemoAudioFiles() {
     const supabase = createClient();

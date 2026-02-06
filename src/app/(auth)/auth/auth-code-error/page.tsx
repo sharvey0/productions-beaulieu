@@ -1,8 +1,8 @@
 'use client'
 
-import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { getSupabaseErrorMessage } from "@/lib/supabase/utils";
+import {Suspense} from "react";
+import {useSearchParams} from "next/navigation";
+import {getSupabaseErrorMessage} from "@/lib/supabase/utils";
 import Link from "next/link";
 
 function AuthErrorCodeContent() {
