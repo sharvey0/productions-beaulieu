@@ -39,11 +39,11 @@ export function AboutUs() {
 
                         <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
                             <div>
-                                <p className="text-3xl font-bold text-white">10+</p>
+                                <p className="text-3xl font-bold text-white">5+</p>
                                 <p className="text-zinc-500 uppercase tracking-widest text-xs mt-1">Années d&#39;expérience</p>
                             </div>
                             <div>
-                                <p className="text-3xl font-bold text-white">500+</p>
+                                <p className="text-3xl font-bold text-white">20+</p>
                                 <p className="text-zinc-500 uppercase tracking-widest text-xs mt-1">Événements réussis</p>
                             </div>
                         </div>
