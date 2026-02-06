@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export function AboutUs() {
     return (
@@ -59,7 +60,7 @@ export function AboutUs() {
                             { name: "Classique & Noël", img: "/img/noel.jpg" },
                             { name: "Musique de films & Jeux Vidéo", img: "/img/jeux_video.jpg" }
                         ].map((style, idx) => (
-                            <div key={idx} className="relative h-64 group overflow-hidden rounded-xl border border-white/5">
+                            <Link key={idx} href="/demo" className="relative h-64 group overflow-hidden rounded-xl border border-white/5">
                                 <Image
                                     src={style.img}
                                     alt={style.name}
@@ -72,7 +73,7 @@ export function AboutUs() {
                                 <div className="absolute bottom-6 left-6">
                                     <p className="text-white font-bold uppercase tracking-widest text-sm">{style.name}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>

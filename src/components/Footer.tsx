@@ -60,7 +60,7 @@ export function Footer() {
                         Fait avec passion par {" "}
                         <a
                             href="https://github.com/sharvey0"
-                            className="underline underline-offset-2"
+                            className="underline underline-offset-2 hover:text-[var(--accent)] transition-colors"
                             target="_blank"
                         >
                             Samuel Harvey
@@ -68,7 +68,7 @@ export function Footer() {
                         {" et "}
                         <a
                             href="https://github.com/edupont16"
-                            className="underline underline-offset-2"
+                            className="underline underline-offset-2 hover:text-[var(--accent)] transition-colors"
                             target="_blank"
                         >
                             Édouard Dupont
