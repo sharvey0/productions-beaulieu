@@ -2,41 +2,37 @@
 
 import {createClient} from "@/lib/supabase/client";
 import * as React from "react";
-import {useRouter} from "next/navigation";
 import {FormCard} from "@/components/FormCard";
 import {FormInput} from "@/components/FormInput";
+import Link from "next/link";
 
 const supabase = createClient();
 
 export default function UpdatePassword() {
     const [form, setForm] = React.useState({
-        email: "",
         password: "",
         confirmPassword: ""
     });
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = React.useState(false);
     const [isSuccess, setIsSuccess] = React.useState(false);
-    const router = useRouter();
 
     async function resetPassword() {
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (user?.email != form.email) {
-            return setErrors(prevState => ({ ...prevState, "api": "emails_not_corresponding" }));
-        }
-
         const { error } = await supabase.auth.updateUser({ password: form.password });
 
         if (error) {
             setErrors(prevState => ({ ...prevState, "api": error.code! }));
         } else {
-            await fetch("/account/update-password/clear-flag", { method: "POST" });
+            try {
+                await fetch("/account/update-password/clear-flag", { method: "POST" });
+            } catch (e) {
+                console.error("Failed to clear password update flag", e);
+            }
 
             setIsSuccess(true);
 
             setTimeout(() => {
-                router.push('/dashboard');
+                window.location.href = "/account";
             }, 2400);
         }
     }
@@ -44,9 +40,6 @@ export default function UpdatePassword() {
     function validate() {
         const next: Record<string, string> = {};
 
-        if (!form.email.trim()) next.email = "Une adresse courriel est requise.";
-        if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-            next.email = "Une adresse courriel valide est requise.";
         if (!form.password) next.password = "Un mot de passe est requis.";
         if (form.password && !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(form.password.trim()))
             next.password = "Le mot de passe doit contenir : 8 caractères, 1 majuscule, 1 miniscule et 1 caractère spécial";
@@ -84,20 +77,9 @@ export default function UpdatePassword() {
             successMessage="Votre mot de passe a bien été modifié."
             errors={errors}
             title="Changer le mot de passe"
-            subtitle="Entrez votre adresse courriel"
+            subtitle="Entrez votre nouveau mot de passe"
         >
             <form onSubmit={onSubmit} className="space-y-4">
-                <FormInput
-                    title="Adresse courriel"
-                    id="email"
-                    type="text"
-                    autoComplete="email"
-                    value={form.email}
-                    placeholder="Votre adresse courriel"
-                    onChange={onChange}
-                    error={errors.email}
-                />
-
                 <FormInput
                     title="Nouveau mot de passe"
                     id="password"
@@ -113,7 +95,7 @@ export default function UpdatePassword() {
                 <FormInput
                     title="Confirmez le mot de passe"
                     id="confirmPassword"
-                    type="confirmPassword"
+                    type="password"
                     autoComplete="new-password"
                     value={form.confirmPassword}
                     placeholder="Confirmation du mot de passe"
@@ -122,20 +104,20 @@ export default function UpdatePassword() {
                     isPassword={true}
                 />
 
-                <button
-                    type="submit"
-                    className="mt-2 w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest"
-                    disabled={ isLoading }
-                >
-                    Changer le mot de passe
-                </button>
-
-                <p className="text-center text-sm text-zinc-400">
-                    Vous avez déjà un compte ?{" "}
-                    <a href="/login" className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
-                        Se connecter
-                    </a>
-                </p>
+                <div>
+                    <button
+                        type="submit"
+                        className="mt-2 w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest"
+                        disabled={ isLoading }
+                    >
+                        Changer le mot de passe
+                    </button>
+                    <Link href="/account">
+                        <button className="mt-2 w-full rounded-lg bg-white/10 px-4 py-2.5 text-sm font-bold text-white/80 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest">
+                            Retour
+                        </button>
+                    </Link>
+                </div>
             </form>
         </FormCard>
     );

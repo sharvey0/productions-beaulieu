@@ -4,12 +4,10 @@ import {ReactNode} from "react";
 export default function AuthLayout({ children }:  Readonly<{ children: ReactNode; }>) {
     return (
         <div>
-            <Header showOnlyLogo={true} />
-            <main className="h-screen min-h-160 flex items-center bg-black bg-gradient-to-br from-black via-zinc-950 to-black text-white">
+            <Header showOnlyLogo />
+            <main className="min-h-screen flex items-center justify-center bg-black bg-gradient-to-br from-black via-zinc-950 to-black text-white px-6 py-32 lg:py-0">
                 <div className="mx-auto w-full max-w-md">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
-                        { children }
-                    </div>
+                    { children }
                 </div>
             </main>
         </div>

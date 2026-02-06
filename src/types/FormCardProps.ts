@@ -5,7 +5,7 @@ export type FormCardProps = {
     isLoading: boolean,
     isSuccess?: boolean,
     successMessage?: string,
-    errors: Record<string, string>,
+    errors?: Record<string, string>,
     title: string,
     subtitle: string
 };
