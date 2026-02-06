@@ -22,9 +22,9 @@ export default function AccountPage() {
     }, [supabase]);
 
     return (
-        <div className="min-h-screen flex items-center bg-black bg-gradient-to-br from-black via-zinc-950 to-black text-white">
+        <div className="min-h-screen flex items-center justify-center bg-black bg-gradient-to-br from-black via-zinc-950 to-black text-white px-6 py-32 lg:py-0">
             <Header showOnlyLogo />
-            <main className="mx-auto max-w-lg w-full px-6 flex flex-col justify-center items-center">
+            <main className="mx-auto max-w-lg w-full flex flex-col justify-center items-center">
                 <div className="mx-auto w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
                     <h1 className="text-3xl font-semibold">Votre compte</h1>
                     <p className="text-neutral-500 mt-2">Gérez les paramètres de votre compte.</p>

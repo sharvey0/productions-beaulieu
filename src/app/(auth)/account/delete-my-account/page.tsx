@@ -71,7 +71,7 @@ export default function DeleteMyAccountPage() {
                     disabled={!isDeleteEnabled}
                     className="cursor-pointer px-5 h-full py-2 rounded-lg bg-red-600/20 border border-red-600 text-red-200 font-semibold hover:bg-[var(--accent)] transition-all group disabled:bg-transparent disabled:border-0"
                 >
-                    {remainingSeconds > 0 ? `${remainingSeconds}s` : "Supprimer mon compte"}
+                    {remainingSeconds > 0 ? `${remainingSeconds}s` : "Supprimer"}
                 </button>
             </div>
         </FormCard>
