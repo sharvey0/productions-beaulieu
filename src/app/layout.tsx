@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {ReactNode} from "react";
-import {Header} from "@/components/Header";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/next";
 
@@ -19,6 +18,10 @@ export default function RootLayout({
     <html lang="fr">
     <Analytics />
     <SpeedInsights />
+    <head>
+        <title>Productions Beaulieu</title>
+        <meta name="apple-mobile-web-app-title" content="Productions Beaulieu" />
+    </head>
       <body className="antialiased">
         {children}
       </body>
