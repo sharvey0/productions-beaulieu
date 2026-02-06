@@ -44,9 +44,9 @@ export default function DeleteMyAccountPage() {
     async function deleteAccount() {
         setIsLoading(true);
 
-        const { data, error } = await supabase.auth.getUser();
+        const { data: {user} , error: userError } = await supabase.auth.getUser();
 
-        if (error) {
+        if (userError || !user) {
             return console.error("Une erreur est survenue lors de l'obtention de l'utilisateur");
         }
 
