@@ -1,10 +1,40 @@
+'use client';
+
 import Image from "next/image";
 import { Header } from "@/components/Header";
 import Link from "next/link";
 import {AboutUs} from "@/components/AboutUs";
 import {Footer} from "@/components/Footer";
+import { useEffect, useState } from "react";
+import { getLastDemoUpdate } from "@/lib/supabase/bucket";
+
 
 export default function Home() {
+    const [date, setDate] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
+    
+         useEffect(() => {
+           let cancelled = false;
+
+           (async () => {
+             setLoading(true);
+             const data = await getLastDemoUpdate();
+             setDate(
+                data
+                    ? new Date(data[0].created_at).toLocaleDateString("fr-FR", {
+                        day: "2-digit",
+                        month: "long",  
+                        year: "numeric", 
+                    })
+                    : ""
+                );
+             if (!cancelled) setLoading(false);
+           })();
+
+           return () => {
+             cancelled = true;
+           };
+         }, []);
   return (
       <div>
         <Header />
@@ -45,7 +75,7 @@ export default function Home() {
                       </div>
                       <div>
                           <h3 className="text-xl md:text-3xl font-bold tracking-wide">Dernière démo</h3>
-                          <p className="text-gray-400 text-xs md:text-sm mt-1 uppercase tracking-widest">2 février 2026</p>
+                          <p className="text-gray-400 text-xs md:text-sm mt-1 uppercase tracking-widest">{ loading ? "Chargement..." : date }</p>
                       </div>
                   </div>
 

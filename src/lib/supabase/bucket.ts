@@ -25,3 +25,20 @@ export async function loadAllDemoAudioFiles() {
     }));
     return result
 }
+
+export async function getLastDemoUpdate() {
+    const supabase = createClient();
+
+    const { data: date, error: bucketError } = await supabase
+        .from('demos')
+        .select('*')
+        .order('created_at', {  ascending: false })
+        .limit(1);
+
+    if (bucketError) {
+        console.error('File error: ', bucketError);
+        return;
+    }
+
+    return date;
+}
