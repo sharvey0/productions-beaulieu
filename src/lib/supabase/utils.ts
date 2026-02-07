@@ -25,11 +25,3 @@ export function getDemoCategoryName(category: string): string {
 
     return category;
 }
-
-export function normalize(str: string) {
-  return str
-    .toLowerCase()
-    .replace(/\s+/g, "_")      // replace spaces with _
-    .replace(/&/g, "and")      // replace & with 'and'
-    .replace(/[^\w_]/g, "");   // remove all other special chars
-}

@@ -165,6 +165,11 @@ export default function Demo() {
                             <h3 className="text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors line-clamp-1">
                               {file.name}
                             </h3>
+                            <p className="text-zinc-400 text-xs mt-1">{new Date(file.created_at).toLocaleDateString("fr-FR", {
+                                day: "2-digit",
+                                month: "long",
+                                year: "numeric"
+                            })}</p>
                           </div>
                           <div className="audio-player-container">
                              <audio controls className="w-full h-10 accent-[var(--accent)]" src={file.url} />

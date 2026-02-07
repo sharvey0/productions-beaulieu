@@ -61,7 +61,7 @@ export function AboutUs() {
                             { name: "Classique & Noël", img: "/img/noel.jpg" },
                             { name: "Musique de films & Jeux Vidéo", img: "/img/jeux_video.jpg" }
                         ].map((style, idx) => (
-                            <Link key={idx} href={`/demo/#category-${normalize(style.name)}`} className="relative h-64 group overflow-hidden rounded-xl border border-white/5">
+                            <Link key={idx} href={`/demo`} className="relative h-64 group overflow-hidden rounded-xl border border-white/5">
                                 <Image
                                     src={style.img}
                                     alt={style.name}
