@@ -29,7 +29,7 @@ export async function loadAllDemoAudioFiles() {
 export async function getLastDemoUpdate() {
     const supabase = createClient();
 
-    const { data: date, error: bucketError } = await supabase
+    const { data: data, error: bucketError } = await supabase
         .from('demos')
         .select('*')
         .order('created_at', {  ascending: false })
@@ -39,6 +39,6 @@ export async function getLastDemoUpdate() {
         console.error('File error: ', bucketError);
         return;
     }
-
-    return date;
+    console.log(data);
+    return data;
 }
