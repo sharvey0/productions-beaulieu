@@ -1,18 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState, useRef} from "react";
 import Image from "next/image";
-import { Header } from "@/components/Header";
-import { DemoObject } from "@/types/DemoObject";
-import { loadAllDemoAudioFiles } from "@/lib/supabase/bucket";
-import { getDemoCategoryName } from "@/lib/supabase/utils";
-import { normalize } from "path";
+import {Header} from "@/components/Header";
+import {Footer} from "@/components/Footer";
+import {DemoObject} from "@/types/DemoObject";
+import {loadAllDemoAudioFiles} from "@/lib/supabase/bucket";
+import {getDemoCategoryName} from "@/lib/supabase/utils";
 
 export default function Demo() {
   const [groupedFiles, setGroupedFiles] = useState<
     Record<string, DemoObject[]>
   >({});
   const [loading, setLoading] = useState<boolean>(true);
+  const [activeCategory, setActiveCategory] = useState<string>("jeux_video");
+  
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -40,67 +43,150 @@ export default function Demo() {
 
   const categories: string[] = ["jeux_video", "noel", "jazz", "pop"];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 200;
+
+      for (const category of categories) {
+        const element = sectionRefs.current[category];
+        if (element) {
+          const { top, bottom } = element.getBoundingClientRect();
+          const absoluteTop = top + window.pageYOffset;
+          const absoluteBottom = bottom + window.pageYOffset;
+
+          if (scrollPosition >= absoluteTop && scrollPosition < absoluteBottom) {
+            setActiveCategory(category);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [categories]);
+
+  const scrollToCategory = (category: string) => {
+    setActiveCategory(category);
+    const element = sectionRefs.current[category];
+    if (element) {
+      const yOffset = -150;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <main className="grid justify-items-center min-h-screen w-full pt-24 md:pt-28 bg-black text-white selection:bg-red-600/30">
+    <div className="min-h-screen bg-black text-white">
       <Header />
-      <div className="w-full max-w-4xl px-4 mt-30">
+
+      <section className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/img/homepage.jpg"
+            alt="Demo Hero"
+            fill
+            priority
+            style={{ objectFit: "cover" }}
+            className="opacity-40 brightness-[0.4]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        </div>
+        
+        <div className="relative z-10 text-center px-4 pt-20">
+          <h1 className="text-5xl md:text-7xl font-bold uppercase tracking-[0.2em] mb-4">Nos Démos</h1>
+          <div className="w-24 h-1 bg-[var(--accent)] mx-auto"></div>
+          <p className="mt-6 text-zinc-400 max-w-2xl mx-auto uppercase tracking-widest text-sm">
+            Découvrez notre univers musical à travers une sélection de nos meilleures performances.
+          </p>
+        </div>
+      </section>
+
+      {!loading && Object.keys(groupedFiles).length > 0 && (
+        <nav className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-y border-white/10 py-4">
+          <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-4 md:gap-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => scrollToCategory(category)}
+                className={`text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold transition-all ${
+                  activeCategory === category ? "text-[var(--accent)]" : "text-zinc-500 hover:text-white"
+                }`}
+              >
+                {getDemoCategoryName(category)}
+              </button>
+            ))}
+          </div>
+        </nav>
+      )}
+
+      <main className="max-w-7xl mx-auto px-6 py-20 min-h-[40vh]">
         {loading && (
-          <div className="absolute flex items-center justify-center inset-0 z-50">
+          <div className="flex items-center justify-center py-20">
             <div className="loader"></div>
           </div>
         )}
 
         {!loading && groupedFiles && Object.keys(groupedFiles).length > 0 && (
-          <div>
+          <div className="space-y-32">
             {categories.map((category: string) => (
-              <section key={category} id={`category-${normalize(getDemoCategoryName(category))}`}>
-                <h2 className="text-6xl font-bold mt-10 mb-4">
-                  {getDemoCategoryName(category)}
-                </h2>
-                <ul className="flex flex-col gap-6">
+              <div 
+                key={category} 
+                ref={el => { sectionRefs.current[category] = el }}
+                className="scroll-mt-40"
+              >
+                <div className="flex items-center gap-6 mb-12">
+                  <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wider">
+                    {getDemoCategoryName(category)}
+                  </h2>
+                  <div className="flex-1 h-px bg-white/10"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {(groupedFiles[category] || []).map((file: DemoObject) => (
-                    <li key={file.name}>
-                      <div className="flex items-center bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                        <div className="relative w-1/2 h-128 bg-gray-800 flex-shrink-0">
+                    <div 
+                      key={file.name}
+                      className="group bg-zinc-900/40 border border-white/5 rounded-xl overflow-hidden hover:border-[var(--accent)]/30 transition-all duration-500"
+                    >
+                      <div className="flex flex-col sm:flex-row h-full">
+                        <div className="relative w-full sm:w-40 h-48 sm:h-full bg-zinc-800 flex-shrink-0 overflow-hidden">
                           <Image
                             src={"/img/" + file.category + ".jpg"}
                             alt={file.name}
                             fill
-                            priority
-                            sizes="50vw"
+                            sizes="(max-width: 640px) 100vw, 160px"
                             style={{ objectFit: "cover" }}
+                            className="grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
                           />
                         </div>
-                        <div className="w-1/2 p-6 flex flex-col justify-center gap-4">
-                          <h3 className="text-xl font-semibold">{file.name}</h3>
-                          <audio controls className="w-full" src={file.url} />
-                          <p className="text-sm text-gray-400">
-                            Dernière mise à jour :{" "}
-                            {new Date(file.created_at).toLocaleDateString(
-                              "fr-FR",
-                              {
-                                day: "2-digit",
-                                month: "long",
-                                year: "numeric",
-                              },
-                            )}
-                          </p>
+                        <div className="flex-1 p-6 flex flex-col justify-between gap-6">
+                          <div>
+                            <p className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-1">Extrait Audio</p>
+                            <h3 className="text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors line-clamp-1">
+                              {file.name}
+                            </h3>
+                          </div>
+                          <div className="audio-player-container">
+                             <audio controls className="w-full h-10 accent-[var(--accent)]" src={file.url} />
+                          </div>
                         </div>
                       </div>
-                    </li>
+                    </div>
                   ))}
-                </ul>
-              </section>
+                </div>
+              </div>
             ))}
           </div>
         )}
 
-        {!loading && groupedFiles && Object.keys(groupedFiles).length === 0 && (
-          <div className="absolute flex items-center justify-center inset-0 z-50">
-            <div>Aucun fichier trouvé</div>
+        {!loading && (!groupedFiles || Object.keys(groupedFiles).length === 0) && (
+          <div className="flex flex-col items-center justify-center py-20 text-zinc-500">
+            <p className="uppercase tracking-widest">Aucun fichier trouvé</p>
           </div>
         )}
-      </div>
-    </main>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

@@ -1,13 +1,13 @@
 "use client";
 
-import { FormCard } from "@/components/FormCard";
+import {FormCard} from "@/components/FormCard";
 
 import * as React from "react";
+import {Suspense} from "react";
 import {useSearchParams} from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import {createClient} from "@/lib/supabase/client";
 import Link from "next/link";
 import {FormInput} from "@/components/FormInput";
-import {Suspense} from "react";
 
 const supabase = createClient();
 

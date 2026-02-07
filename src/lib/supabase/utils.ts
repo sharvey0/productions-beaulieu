@@ -1,6 +1,6 @@
 import {SupabaseErrorMessages} from "@/enums/supabase/SupabaseErrorMessages";
 import {DemoAudioNames} from "@/enums/supabase/DemoAudioNames";
-import { DemoAudioCategoryNames } from "@/enums/supabase/DemoAudioCategoryNames";
+import {DemoAudioCategoryNames} from "@/enums/supabase/DemoAudioCategoryNames";
 
 export function getSupabaseErrorMessage(errorCode: string) : string {
     if (errorCode in SupabaseErrorMessages) {
