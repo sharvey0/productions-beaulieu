@@ -6,7 +6,7 @@ const supabase = createClient();
 export async function loadAllDemo() {
     const { data, error } = await supabase
         .from("demos")
-        .select()
+        .select();
 
     if (error || !data) {
         console.log("Unable to retrieve demo files: " + error);
@@ -22,7 +22,8 @@ export async function getLastDemo() {
         .from('demos')
         .select('*')
         .order('created_at', {  ascending: false })
-        .limit(1);
+        .limit(1)
+        .single();
 
     if (error || !data) {
         console.error('Unable to retrieve last demo: ', error);

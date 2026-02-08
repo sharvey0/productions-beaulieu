@@ -103,7 +103,7 @@ export default function Demo() {
                             <button
                                 key={category.id}
                                 onClick={() => scrollToCategory(category)}
-                                className={`text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold transition-all ${
+                                className={`cursor-pointer text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold transition-all ${
                                     activeCategory === category.id ? "text-[var(--accent)]" : "text-zinc-500 hover:text-white"
                                 }`}
                             >
@@ -139,17 +139,17 @@ export default function Demo() {
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    {(groupedDemos[category.id] || []).map((file: Demo) => (
+                                    {(groupedDemos[category.id] || []).map((demo: Demo) => (
                                         <div
-                                            key={file.name}
+                                            key={demo.name}
                                             className="group bg-zinc-900/40 border border-white/5 rounded-xl overflow-hidden hover:border-[var(--accent)]/30 transition-all duration-500"
                                         >
                                             <div className="flex flex-col sm:flex-row h-full">
                                                 <div
                                                     className="relative w-full sm:w-40 h-48 sm:h-full bg-zinc-800 flex-shrink-0 overflow-hidden">
                                                     <Image
-                                                        src={"/img/" + category.label + ".jpg"}
-                                                        alt={file.name}
+                                                        src={demo.img_url}
+                                                        alt={demo.name}
                                                         fill
                                                         sizes="(max-width: 640px) 100vw, 160px"
                                                         style={{objectFit: "cover"}}
@@ -161,9 +161,9 @@ export default function Demo() {
                                                         <p className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-1">Extrait
                                                             Audio</p>
                                                         <h3 className="text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors line-clamp-1">
-                                                            {file.name}
+                                                            {demo.name}
                                                         </h3>
-                                                        <p className="text-zinc-400 text-xs mt-1">{new Date(file.created_at).toLocaleDateString("fr-FR", {
+                                                        <p className="text-zinc-400 text-xs mt-1">{new Date(demo.created_at).toLocaleDateString("fr-FR", {
                                                             day: "2-digit",
                                                             month: "long",
                                                             year: "numeric"
@@ -171,7 +171,7 @@ export default function Demo() {
                                                     </div>
                                                     <div className="audio-player-container">
                                                         <audio controls className="w-full h-10 accent-[var(--accent)]"
-                                                               src={file.url}
+                                                               src={demo.audio_url}
                                                                onPlay={onPlay}
                                                         />
                                                     </div>
