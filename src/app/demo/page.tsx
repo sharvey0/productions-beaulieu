@@ -7,6 +7,7 @@ import {Footer} from "@/components/Footer";
 import {DemoObject} from "@/types/DemoObject";
 import {loadAllDemoAudioFiles} from "@/lib/supabase/bucket";
 import {getDemoCategoryName} from "@/lib/supabase/utils";
+import {Hero} from "@/components/HeroSection";
 
 export default function Demo() {
     const [groupedFiles, setGroupedFiles] = useState<
@@ -79,28 +80,7 @@ export default function Demo() {
     return (
         <div className="min-h-screen bg-black text-white">
             <Header/>
-
-            <section className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src="/img/homepage.jpg"
-                        alt="Demo Hero"
-                        fill
-                        priority
-                        style={{objectFit: "cover"}}
-                        className="opacity-40 brightness-[0.4]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
-                </div>
-
-                <div className="relative z-10 text-center px-4 pt-20">
-                    <h1 className="text-5xl md:text-7xl font-bold uppercase tracking-[0.2em] mb-4">Nos Démos</h1>
-                    <div className="w-24 h-1 bg-[var(--accent)] mx-auto"></div>
-                    <p className="mt-6 text-zinc-400 max-w-2xl mx-auto uppercase tracking-widest text-sm">
-                        Découvrez notre univers musical à travers une sélection de nos meilleures performances.
-                    </p>
-                </div>
-            </section>
+            <Hero title="Nos Démos" subtitle="Découvrez notre univers musical à travers une sélection de nos meilleures performances." />
 
             {!loading && Object.keys(groupedFiles).length > 0 && (
                 <nav className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-y border-white/10 py-4">
