@@ -1,4 +1,4 @@
-export type DemoObject = {
+export type Demo = {
   name: string;
   url: string;
   category: string;

@@ -1,5 +1,5 @@
 import {createClient} from "@/lib/supabase/client";
-import {DemoObject} from "@/types/DemoObject";
+import {Demo} from "@/types/Demo";
 import {getDemoAudioFileName} from "./utils";
 import type {DemoAudioCategory} from "@/enums/supabase/DemoAudioCategory";
 import {DemoAudioCategoryMap} from "@/enums/supabase/DemoAudioCategory";
@@ -18,7 +18,7 @@ export async function loadAllDemoAudioFiles() {
         return;
     }
 
-    const result: DemoObject[] = (files ?? []).map((file) => ({
+    const result: Demo[] = (files ?? []).map((file) => ({
         name: getDemoAudioFileName(file.name),
         url: bucketPublicURL + file.name,
         category: DemoAudioCategoryMap[file.name as DemoAudioCategory],
