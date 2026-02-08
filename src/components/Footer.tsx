@@ -27,34 +27,43 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Navigation</h4>
                         <ul className="space-y-4 text-sm text-zinc-400">
-                            <li><Link href="/" className="hover:text-[var(--accent)] transition-colors">Accueil</Link></li>
-                            <li><Link href="/book" className="hover:text-[var(--accent)] transition-colors">Réservez</Link></li>
-                            <li><Link href="/contact" className="hover:text-[var(--accent)] transition-colors">Contactez-nous</Link></li>
-                            <li><Link href="/#about-us" className="hover:text-[var(--accent)] transition-colors">À propos</Link></li>
+                            <li><Link href="/" className="hover:text-[var(--accent)] transition-colors">Accueil</Link>
+                            </li>
+                            <li><Link href="/book"
+                                      className="hover:text-[var(--accent)] transition-colors">Réservez</Link></li>
+                            <li><Link href="/contact"
+                                      className="hover:text-[var(--accent)] transition-colors">Contactez-nous</Link>
+                            </li>
+                            <li><Link href="/#about-us" className="hover:text-[var(--accent)] transition-colors">À
+                                propos</Link></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Contact</h4>
                         <div className="space-y-4">
-                            <a href="mailto:productionsbeaulieu@gmail.com" className="flex items-center gap-3 text-sm text-zinc-400 hover:text-[var(--accent)] transition-colors">
-                                <MdEmail className="text-[var(--accent)] w-5 h-5 rounded-full" />
-                                productionsbeaulieu@gmail.com
-                            </a>
                             <div className="flex gap-4 pt-2">
                                 <Link
                                     href="https://www.instagram.com/productions_beaulieu/"
                                     target="_blank"
                                     className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"
                                 >
-                                    <FaInstagram size={18} />
+                                    <FaInstagram size={18}/>
+                                </Link>
+                                <Link
+                                    href="https://www.instagram.com/productions_beaulieu/"
+                                    target="_blank"
+                                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all"
+                                >
+                                    <MdEmail size={18}/>
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-white/5 pt-8 font-semibold flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500 uppercase tracking-[0.2em]">
+                <div
+                    className="border-t border-white/5 pt-8 font-semibold flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500 uppercase tracking-[0.2em]">
                     <p>© {new Date().getFullYear()} Productions Beaulieu — Tous droits réservés.</p>
                     <p>
                         Fait avec passion par {" "}

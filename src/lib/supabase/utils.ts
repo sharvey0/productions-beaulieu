@@ -2,7 +2,7 @@ import {SupabaseErrorMessages} from "@/enums/supabase/SupabaseErrorMessages";
 import {DemoAudioNames} from "@/enums/supabase/DemoAudioNames";
 import {DemoAudioCategoryNames} from "@/enums/supabase/DemoAudioCategoryNames";
 
-export function getSupabaseErrorMessage(errorCode: string) : string {
+export function getSupabaseErrorMessage(errorCode: string): string {
     if (errorCode in SupabaseErrorMessages) {
         return SupabaseErrorMessages[errorCode as keyof typeof SupabaseErrorMessages];
     }
@@ -10,7 +10,7 @@ export function getSupabaseErrorMessage(errorCode: string) : string {
     return SupabaseErrorMessages.default + " (" + errorCode + ")";
 }
 
-export function getDemoAudioFileName(filePath: string) : string {
+export function getDemoAudioFileName(filePath: string): string {
     if (filePath in DemoAudioNames) {
         return DemoAudioNames[filePath as keyof typeof DemoAudioNames];
     }

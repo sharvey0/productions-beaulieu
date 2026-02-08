@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --accent: #E13333;
+    --background: #000000;
+    --foreground: #ffffff;
+    --accent: #E13333;
 }
 
 html {
@@ -12,7 +12,7 @@ html {
 }
 
 @layer base {
-  body {
-    @apply bg-black text-white;
-  }
+    body {
+        @apply bg-black text-white;
+    }
 }

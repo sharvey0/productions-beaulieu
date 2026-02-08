@@ -5,13 +5,13 @@ import * as React from "react";
 export function FormCard(
     {
         children,
-        isLoading,　
+        isLoading,
         isSuccess,
         successMessage,
         errors,
         title,
         subtitle
-    } : FormCardProps) {
+    }: FormCardProps) {
     return (
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             {
@@ -21,7 +21,7 @@ export function FormCard(
                     </div> : null
             }
 
-            <div className={ isLoading ? "opacity-50" : "" }>
+            <div className={isLoading ? "opacity-50" : ""}>
                 <div className="mb-6">
                     <h1 className="text-2xl font-semibold tracking-tight text-white">
                         {title}
@@ -31,17 +31,17 @@ export function FormCard(
                     </p>
                 </div>
 
-                <hr className="text-neutral-800 mb-5" />
+                <hr className="text-neutral-800 mb-5"/>
 
                 {isSuccess ? (
                     <div className="bg-green-800 rounded-lg  text-white p-4 mb-4" role="alert">
                         <p>{successMessage}</p>
                     </div>
-                ): null}
+                ) : null}
 
                 {errors?.api ? (
                     <div className="bg-[var(--accent)] rounded-lg text-white p-4 mb-4" role="alert">
-                        <p>{ getSupabaseErrorMessage(errors.api) }</p>
+                        <p>{getSupabaseErrorMessage(errors.api)}</p>
                     </div>
                 ) : null}
 

@@ -18,10 +18,10 @@ export default function UpdateEmail() {
     const [isSuccess, setIsSuccess] = React.useState(false);
 
     async function updateEmail() {
-        const { error } = await supabase.auth.updateUser({ email: form.email });
+        const {error} = await supabase.auth.updateUser({email: form.email});
 
         if (error) {
-            setErrors(prevState => ({ ...prevState, "api": error.code! }));
+            setErrors(prevState => ({...prevState, "api": error.code!}));
         } else {
             setIsSuccess(true);
 
@@ -49,7 +49,7 @@ export default function UpdateEmail() {
         e.preventDefault();
         setIsSuccess(false);
 
-        if(!validate()) return;
+        if (!validate()) return;
 
         setIsLoading(true);
 
@@ -59,9 +59,9 @@ export default function UpdateEmail() {
     }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-        setErrors((prev) => ({ ...prev, [name]: "" }));
+        const {name, value} = e.target;
+        setForm((prev) => ({...prev, [name]: value}));
+        setErrors((prev) => ({...prev, [name]: ""}));
     }
 
     return (
@@ -101,12 +101,13 @@ export default function UpdateEmail() {
                         <button
                             type="submit"
                             className="mt-2 w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest"
-                            disabled={ isLoading }
+                            disabled={isLoading}
                         >
                             Changer l&#39;adresse courriel
                         </button>
                         <Link href="/account">
-                            <button className="mt-2 w-full rounded-lg bg-white/10 px-4 py-2.5 text-sm font-bold text-white/80 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest">
+                            <button
+                                className="mt-2 w-full rounded-lg bg-white/10 px-4 py-2.5 text-sm font-bold text-white/80 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest">
                                 Retour
                             </button>
                         </Link>

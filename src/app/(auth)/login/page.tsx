@@ -14,7 +14,7 @@ const supabase = createClient();
 export default function LoginPage() {
     return (
         <Suspense fallback={null}>
-            <LoginPageContent />
+            <LoginPageContent/>
         </Suspense>
     );
 }
@@ -43,11 +43,11 @@ export function LoginPageContent() {
 
     async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-        if(!validate()) return;
+        if (!validate()) return;
 
         setIsLoading(true);
 
-        const { error } = await supabase.auth.signInWithPassword({
+        const {error} = await supabase.auth.signInWithPassword({
             email: form.email,
             password: form.password
         });
@@ -59,14 +59,14 @@ export function LoginPageContent() {
         if (!error) {
             window.location.href = next ? next : "/";
         } else {
-            setErrors(prevState => ({ ...prevState, "api": error.code! }));
+            setErrors(prevState => ({...prevState, "api": error.code!}));
         }
     }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-        setErrors((prev) => ({ ...prev, [name]: "" }));
+        const {name, value} = e.target;
+        setForm((prev) => ({...prev, [name]: value}));
+        setErrors((prev) => ({...prev, [name]: ""}));
     }
 
     return (
@@ -102,7 +102,8 @@ export function LoginPageContent() {
                 />
 
                 <p className="text-xs text-zinc-400 mt-3 cursor-pointer">
-                    <Link href='/reset-password' className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
+                    <Link href='/reset-password'
+                          className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
                         Réinitialiser le mot de passe
                     </Link>
                 </p>
@@ -116,7 +117,8 @@ export function LoginPageContent() {
 
                 <p className="text-center text-sm text-zinc-400">
                     Vous n&#39;avez pas de compte ?{" "}
-                    <a href="/register" className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
+                    <a href="/register"
+                       className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
                         S&#39;inscrire
                     </a>
                 </p>

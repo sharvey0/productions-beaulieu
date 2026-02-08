@@ -18,8 +18,8 @@ export default function RegisterPage() {
     const [isSuccess, setIsSuccess] = React.useState(false);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+        const {name, value} = e.target;
+        setForm((prev) => ({...prev, [name]: value}));
     }
 
     function validate() {
@@ -54,7 +54,7 @@ export default function RegisterPage() {
 
         const supabase = createClient();
 
-        const { data, error } = await supabase.auth.signUp({
+        const {data, error} = await supabase.auth.signUp({
             email: form.email,
             password: form.password,
             options: {
@@ -66,9 +66,9 @@ export default function RegisterPage() {
         });
 
         if (data.user && data.user.identities && data.user.identities.length === 0) {
-            setErrors(prevState => ({ ...prevState, "api": "user_already_exists" }));
+            setErrors(prevState => ({...prevState, "api": "user_already_exists"}));
         } else if (error) {
-            setErrors(prevState => ({ ...prevState, "api": error.code! }));
+            setErrors(prevState => ({...prevState, "api": error.code!}));
         } else {
             setIsSuccess(true);
         }
@@ -146,14 +146,15 @@ export default function RegisterPage() {
                 <button
                     type="submit"
                     className="mt-2 w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest"
-                    disabled={ isLoading }
+                    disabled={isLoading}
                 >
                     Créer un compte
                 </button>
 
                 <p className="text-center text-sm text-zinc-400">
                     Vous avez déjà un compte ?{" "}
-                    <a href="/login" className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
+                    <a href="/login"
+                       className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
                         Se connecter
                     </a>
                 </p>

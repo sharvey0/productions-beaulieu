@@ -3,7 +3,17 @@ import {useState} from "react";
 import {FormInputProps} from "@/types/FormInputProps";
 import {Eye, EyeOff} from "geist-icons";
 
-export function FormInput({ title, id, type, autoComplete, value, placeholder, onChange, error, isPassword }: FormInputProps) {
+export function FormInput({
+                              title,
+                              id,
+                              type,
+                              autoComplete,
+                              value,
+                              placeholder,
+                              onChange,
+                              error,
+                              isPassword
+                          }: FormInputProps) {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -32,12 +42,12 @@ export function FormInput({ title, id, type, autoComplete, value, placeholder, o
                     placeholder={placeholder}
                 />
 
-                { isPassword ?
+                {isPassword ?
                     <div
                         className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-zinc-400 hover:text-white transition-colors"
                         onClick={changePasswordVisibility}
                     >
-                        {isPasswordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                        {isPasswordVisible ? <EyeOff size={20}/> : <Eye size={20}/>}
                     </div>
                     : null
                 }

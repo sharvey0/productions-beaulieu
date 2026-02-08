@@ -18,10 +18,10 @@ export default function ResetPassword() {
     const successMessage = "Un courriel a bien été envoyé à l'adresse : " + form.email;
 
     async function resetPassword(email: string) {
-        const { error } = await supabase.auth.resetPasswordForEmail(email);
+        const {error} = await supabase.auth.resetPasswordForEmail(email);
 
         if (error) {
-            setErrors(prevState => ({ ...prevState, "api": error.code! }));
+            setErrors(prevState => ({...prevState, "api": error.code!}));
         } else {
             setIsSuccess(true);
         }
@@ -42,7 +42,7 @@ export default function ResetPassword() {
         e.preventDefault();
         setIsSuccess(false);
 
-        if(!validate()) return;
+        if (!validate()) return;
 
         setIsLoading(true);
 
@@ -52,9 +52,9 @@ export default function ResetPassword() {
     }
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
-        setErrors((prev) => ({ ...prev, [name]: "" }));
+        const {name, value} = e.target;
+        setForm((prev) => ({...prev, [name]: value}));
+        setErrors((prev) => ({...prev, [name]: ""}));
     }
 
     return (
@@ -81,14 +81,15 @@ export default function ResetPassword() {
                 <button
                     type="submit"
                     className="mt-2 w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all cursor-pointer disabled:bg-zinc-700 uppercase tracking-widest"
-                    disabled={ isLoading }
+                    disabled={isLoading}
                 >
                     Réinitialiser le mot de passe
                 </button>
 
                 <p className="text-center text-sm text-zinc-400">
                     Vous avez déjà un compte ?{" "}
-                    <Link href="/login" className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
+                    <Link href="/login"
+                          className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
                         Se connecter
                     </Link>
                 </p>

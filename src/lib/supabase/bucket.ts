@@ -8,7 +8,7 @@ export async function loadAllDemoAudioFiles() {
     const supabase = createClient();
     const bucketPublicURL = "https://odsdfqrwfaioqstxalpg.supabase.co/storage/v1/object/public/demo-bucket/audio/";
 
-    const { data: files, error: fileError } = await supabase
+    const {data: files, error: fileError} = await supabase
         .storage
         .from('demo-bucket')
         .list('audio');

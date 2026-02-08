@@ -44,13 +44,13 @@ export default function DeleteMyAccountPage() {
     async function deleteAccount() {
         setIsLoading(true);
 
-        const { data: {user} , error: userError } = await supabase.auth.getUser();
+        const {data: {user}, error: userError} = await supabase.auth.getUser();
 
         if (userError || !user) {
             return console.error("Une erreur est survenue lors de l'obtention de l'utilisateur");
         }
 
-        const res = await fetch("/api/delete-account", { method: "POST" });
+        const res = await fetch("/api/delete-account", {method: "POST"});
         const body = await res.json();
 
         if (!res.ok) {
@@ -69,7 +69,8 @@ export default function DeleteMyAccountPage() {
             subtitle="Cette action est irréversible."
         >
             <div className="flex gap-4">
-                <Link href="/account" className="cursor-pointer px-5 h-full py-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-all group">
+                <Link href="/account"
+                      className="cursor-pointer px-5 h-full py-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-all group">
                     Non
                 </Link>
                 <button
