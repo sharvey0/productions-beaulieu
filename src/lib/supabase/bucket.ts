@@ -36,10 +36,10 @@ export async function getLastDemoUpdate() {
         .order('created_at', {  ascending: false })
         .limit(1);
 
-    if (bucketError) {
+    if (bucketError || !data) {
         console.error('File error: ', bucketError);
         return;
     }
-    console.log(data);
+
     return data;
 }
