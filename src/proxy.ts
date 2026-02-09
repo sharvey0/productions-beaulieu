@@ -32,18 +32,16 @@ export async function proxy(request: NextRequest) {
 
     // IMPORTANT: If you remove getClaims() and you use server-side rendering
     // with the Supabase client, your users may be randomly logged out.
-    const {data, error} = await supabase.auth.getClaims()
+    const {data: {user}, error} = await supabase.auth.getUser()
 
     if (error) {
         console.error(error);
     }
 
-    console.log("claims: " + data);
+    console.log("user: " + user);
 
-    const user = data?.claims
     const pathname = request.nextUrl.pathname
 
-    console.log("user: " + user);
     console.log("pathname: " + pathname);
 
     const isAllowedWhenNotConnected =
