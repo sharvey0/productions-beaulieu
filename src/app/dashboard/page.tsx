@@ -10,13 +10,14 @@ import { useEffect } from "react";
 export default function DashboardPage() {
     const [form, setForm] = React.useState({
         name: "",
-        category: ""
+        category: "",
+        file: null as File | null
     });
 
     const [categories, setCategories] = React.useState<Array<Category>>([]);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [Loading, setLoading] = React.useState(false);
-    const [Success, setSuccess] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
 
     useEffect(() => {
             let cancelled = false;
@@ -33,66 +34,67 @@ export default function DashboardPage() {
             };
         }, []);
              
+
     function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const {name, value} = e.target;
         setForm((prev) => ({...prev, [name]: value}));
         setErrors((prev) => ({...prev, [name]: ""}));
     }
 
-    function validate() {
-        const next: Record<string, string> = {};
-
-        if (!form.name.trim()) next.name = "Name is required.";
-        if (!form.category) next.category = "Category is required.";
-
-        setErrors(next);
-        return Object.keys(next).length === 0;
+    function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0] || null;
+        setForm((prev) => ({...prev, file}));
+        setErrors((prev) => ({...prev, file: ""}));
     }
 
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    function validate() {
+        const errors: Record<string, string> = {};
+
+        if (!form.name.trim()) errors.name = "Le nom est requis.";
+        if (!form.category) errors.category = "La catégorie est requise.";
+        if (!form.file) errors.file = "Le fichier est requis.";
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    }
+
+    const onSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
+        setSuccess(false);
         if (!validate()) return;
 
-        setLoading(true);
+        // TODO - AJOUT DANS LA BD
+        console.log(form);
 
-        // TODO: ADD TO DATABASE
-        console.log("Form data: ", form);
-
-        setLoading(false);
         setSuccess(true);
-
-        setTimeout(() => {
-            setSuccess(false);
-            setForm({name: "", category: ""});
-        }, 2000);
-    }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <div className="w-full max-w-md">
                 <FormCard
-                    isLoading={Loading}
-                    isSuccess={Success}
-                    successMessage="Form submitted successfully!"
+                    isLoading={loading}
+                    isSuccess={success}
+                    successMessage="Formulaire soumis avec succès !"
                     errors={errors}
-                    title="Dashboard"
-                    subtitle="Create a new entry"
+                    title="Tableau de bord"
+                    subtitle="Créer une nouvelle entrée de démo"
                 >
                     <form onSubmit={onSubmit} className="space-y-4">
                         <FormInput
-                            title="Name"
+                            title="Nom de la démo"
                             id="name"
                             type="text"
                             autoComplete="name"
                             value={form.name}
-                            placeholder="Enter name"
+                            placeholder="Entrez le nom de la démo"
                             onChange={onChange}
                             error={errors.name}
                         />
 
                         <div>
                             <label htmlFor="category" className="text-sm font-medium text-white">
-                                Category
+                                Catégorie
                             </label>
                             <div className="relative mt-1">
                                 <select
@@ -103,7 +105,7 @@ export default function DashboardPage() {
                                     className="w-full rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-white outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all appearance-none cursor-pointer"
                                 >
                                     <option value="" disabled className="bg-zinc-900">
-                                        Select a category
+                                        Sélectionnez une catégorie
                                     </option>
                                     {categories.map((category) => (
                                         <option
@@ -128,12 +130,32 @@ export default function DashboardPage() {
                             )}
                         </div>
 
+                        <div>
+                            <label htmlFor="file" className="text-sm font-medium text-white">
+                                Téléchargement de fichier
+                            </label>
+                            <div className="relative mt-1">
+                                <input
+                                    id="file"
+                                    name="file"
+                                    type="file"
+                                    onChange={onFileChange}
+                                    className="w-full rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-white outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[var(--accent)] file:text-white hover:file:bg-[var(--accent)]/90 cursor-pointer"
+                                />
+                            </div>
+                            {errors.file && (
+                                <p className="mt-1 text-sm text-[var(--accent)]">
+                                    {errors.file}
+                                </p>
+                            )}
+                        </div>
+
                         <button
                             type="submit"
-                            disabled={Loading}
+                            disabled={loading}
                             className="w-full rounded-lg bg-[var(--accent)] px-4 py-2 font-medium text-white transition-all hover:bg-[var(--accent)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Submit
+                            Soumettre
                         </button>
                     </form>
                 </FormCard>
