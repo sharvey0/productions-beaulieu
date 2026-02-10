@@ -2,65 +2,77 @@
 
 import {FormCard} from "@/components/FormCard";
 import {FormInput} from "@/components/FormInput";
+import {loadAllCategories} from "@/database/CategoryDAO";
+import {Category} from "@/types/Category";
 import * as React from "react";
-
-const categories = [
-    "Rock",
-    "Jazz",
-    "Classical",
-    "Electronic"
-];
+import { useEffect } from "react";
 
 export default function DashboardPage() {
     const [form, setForm] = React.useState({
         name: "",
         category: ""
     });
+
+    const [categories, setCategories] = React.useState<Array<Category>>([]);
     const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [isSuccess, setIsSuccess] = React.useState(false);
+    const [Loading, setLoading] = React.useState(false);
+    const [Success, setSuccess] = React.useState(false);
 
-    function validate() {
-        const errors: Record<string, string> = {};
-
-        if (!form.name.trim()) errors.name = "Name is required.";
-        if (!form.category) errors.category = "Category is required.";
-
-        setErrors(errors);
-        return Object.keys(errors).length === 0;
-    }
-
-    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        if (!validate()) return;
-
-        setIsLoading(true);
-
-       // TODO: ADD TO DATABASE
-        console.log("Form data: ", form);
-
-        setIsLoading(false);
-        setIsSuccess(true);
-
-       
-        setTimeout(() => {
-            setIsSuccess(false);
-            setForm({name: "", category: ""});
-        }, 2000);
-    }
-
+    useEffect(() => {
+            let cancelled = false;
+    
+            (async () => {
+                setLoading(true);
+                setCategories(await loadAllCategories());
+    
+                if (!cancelled) setLoading(false);
+            })();
+    
+            return () => {
+                cancelled = true;
+            };
+        }, []);
+             
     function onChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const {name, value} = e.target;
         setForm((prev) => ({...prev, [name]: value}));
         setErrors((prev) => ({...prev, [name]: ""}));
     }
 
+    function validate() {
+        const next: Record<string, string> = {};
+
+        if (!form.name.trim()) next.name = "Name is required.";
+        if (!form.category) next.category = "Category is required.";
+
+        setErrors(next);
+        return Object.keys(next).length === 0;
+    }
+
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        if (!validate()) return;
+
+        setLoading(true);
+
+        // TODO: ADD TO DATABASE
+        console.log("Form data: ", form);
+
+        setLoading(false);
+        setSuccess(true);
+
+        setTimeout(() => {
+            setSuccess(false);
+            setForm({name: "", category: ""});
+        }, 2000);
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <div className="w-full max-w-md">
                 <FormCard
-                    isLoading={isLoading}
-                    isSuccess={isSuccess}
+                    isLoading={Loading}
+                    isSuccess={Success}
                     successMessage="Form submitted successfully!"
                     errors={errors}
                     title="Dashboard"
@@ -95,11 +107,11 @@ export default function DashboardPage() {
                                     </option>
                                     {categories.map((category) => (
                                         <option
-                                            key={category}
-                                            value={category}
+                                            key={category.id}
+                                            value={category.label}
                                             className="bg-zinc-900"
                                         >
-                                            {category}
+                                            {category.label}
                                         </option>
                                     ))}
                                 </select>
@@ -118,7 +130,7 @@ export default function DashboardPage() {
 
                         <button
                             type="submit"
-                            disabled={isLoading}
+                            disabled={Loading}
                             className="w-full rounded-lg bg-[var(--accent)] px-4 py-2 font-medium text-white transition-all hover:bg-[var(--accent)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Submit
