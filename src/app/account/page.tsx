@@ -5,27 +5,28 @@ import {Header} from "@/components/Header";
 import {createClient} from "@/lib/supabase/client";
 import Link from "next/link";
 import {MdArrowForward, MdDelete, MdLock, MdLogout, MdMail} from "react-icons/md";
-import {JwtPayload} from "@supabase/auth-js/src";
+import {User} from "@supabase/auth-js";
 
 export default function AccountPage() {
-    const [user, setUser] = React.useState<JwtPayload | null>(null);
+    const [user, setUser] = React.useState<User | null>(null);
     const [loading, setLoading] = React.useState(true);
-    // const supabase = createClient();
-    //
-    // React.useEffect(() => {
-    //     async function getUser() {
-    //         const {data, error} = await supabase.auth.getClaims();
-    //
-    //         if (error || !data) {
-    //             console.log("No claims: " + error);
-    //         }
-    //
-    //         setUser(data!.claims);
-    //         setLoading(false);
-    //     }
-    //
-    //     getUser();
-    // }, [supabase]);
+    const supabase = createClient();
+
+    React.useEffect(() => {
+        async function getUser() {
+            const {data: { session }, error} = await supabase.auth.getSession();
+
+            if (error || !session) {
+                console.log("No claims: " + error);
+                return;
+            }
+
+            setUser(session.user);
+            setLoading(false);
+        }
+
+        getUser();
+    }, [supabase]);
 
     return (
         <div
