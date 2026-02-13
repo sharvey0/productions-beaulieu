@@ -12,6 +12,6 @@ async function signOut() {
     redirect("/");
 }
 
-export async function GET() {
+export async function POST() {
     await signOut();
 }
