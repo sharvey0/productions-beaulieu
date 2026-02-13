@@ -27,7 +27,7 @@ export default function AccountPage() {
         }
 
         getUser();
-    }, [supabase.auth]);
+    }, []);
 
     return (
         <div
