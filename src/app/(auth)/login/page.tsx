@@ -57,7 +57,7 @@ export function LoginPageContent() {
         setIsLoading(false);
 
         if (!error) {
-            // window.location.href = next ? next : "/";
+            window.location.href = next ? next : "/";
         } else {
             setErrors(prevState => ({...prevState, "api": error.code!}));
         }

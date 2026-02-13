@@ -3,19 +3,24 @@
 import * as React from "react";
 import {Header} from "@/components/Header";
 import {createClient} from "@/lib/supabase/client";
-import {User} from "@supabase/supabase-js";
 import Link from "next/link";
 import {MdArrowForward, MdDelete, MdLock, MdLogout, MdMail} from "react-icons/md";
+import {JwtPayload} from "@supabase/auth-js/src";
 
 export default function AccountPage() {
-    const [user, setUser] = React.useState<User | null>(null);
+    const [user, setUser] = React.useState<JwtPayload | null>(null);
     const [loading, setLoading] = React.useState(true);
     const supabase = createClient();
 
     React.useEffect(() => {
         async function getUser() {
-            const {data: {user}} = await supabase.auth.getUser();
-            setUser(user);
+            const {data, error} = await supabase.auth.getClaims();
+
+            if (error || !data) {
+                console.log("No claims: " + error);
+            }
+
+            setUser(data!.claims);
             setLoading(false);
         }
 
@@ -50,12 +55,12 @@ export default function AccountPage() {
                                 <div>
                                     <label
                                         className="text-xs uppercase tracking-widest text-neutral-500 font-bold">Prénom</label>
-                                    <p className="text-lg mt-1">{user.user_metadata.first_name}</p>
+                                    <p className="text-lg mt-1">{user.user_metadata?.first_name}</p>
                                 </div>
                                 <div>
                                     <label
                                         className="text-xs uppercase tracking-widest text-neutral-500 font-bold">Nom</label>
-                                    <p className="text-lg mt-1">{user.user_metadata.last_name}</p>
+                                    <p className="text-lg mt-1">{user.user_metadata?.last_name}</p>
                                 </div>
                             </div>
                             <p className="text-neutral-600 text-xs">Rejoint
