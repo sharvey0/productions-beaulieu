@@ -30,6 +30,10 @@ export default function AccountPage() {
         getUser();
     }, []);
 
+    function handleLogout() {
+        fetch("/logout", { method: 'POST' });
+    }
+
     return (
         <div
             className="min-h-screen flex items-center justify-center bg-black bg-gradient-to-br from-black via-zinc-950 to-black text-white px-6 py-32 lg:py-0">
@@ -90,13 +94,13 @@ export default function AccountPage() {
                                         className="text-neutral-500 group-hover:translate-x-1 transition-transform font-black"/>
                                 </Link>
 
-                                <Link
-                                    href="/logout"
+                                <button
+                                    onClick={handleLogout}
                                     className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
                                 >
                                     <MdLogout className="text-[var(--accent)] text-xl"/>
                                     <span className="flex-1 font-medium text-left">Se déconnecter</span>
-                                </Link>
+                                </button>
 
                                 <Link
                                     href="/account/delete-my-account"
