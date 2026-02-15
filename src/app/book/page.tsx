@@ -28,10 +28,15 @@ export default function Contact() {
         e.preventDefault();
         setStatus("sending");
 
-        // TODO - LOGIQUE D'ENVOIE DE MESSAGE
-        console.log(form);
+        await fetch('/api/send-booking-info', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(form)
+        });
 
-        setStatus("error");
+        setStatus("sent");
     };
 
     return (

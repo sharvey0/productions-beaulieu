@@ -10,6 +10,7 @@ import Link from "next/link";
 import {Hero} from "@/components/HeroSection";
 
 export default function Contact() {
+
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -28,10 +29,15 @@ export default function Contact() {
         e.preventDefault();
         setStatus("sending");
 
-        // TODO - LOGIQUE D'ENVOIE DE MESSAGE
-        console.log(form);
+        await fetch('/api/send-question-info', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(form)
+        });
 
-        setStatus("error");
+        setStatus("sent");
     };
 
     return (

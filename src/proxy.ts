@@ -54,7 +54,8 @@ export async function proxy(request: NextRequest) {
         pathname.startsWith('/auth') ||
         pathname.startsWith('/demo') ||
         pathname.startsWith('/contact') ||
-        pathname.startsWith('/book');
+        pathname.startsWith('/book') ||
+        pathname.startsWith('/api');
 
     console.log("isAllowedWhenNotConnected: " + isAllowedWhenNotConnected);
 
