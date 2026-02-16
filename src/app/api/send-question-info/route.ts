@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
             request.headers.get('x-real-ip') ||
             'unknown';
 
-        if (!checkRateLimit(ip)) {
+        if (!checkRateLimit(ip, 3)) {
             console.warn(`Rate limit exceeded for IP: ${ip}`);
             return NextResponse.json(
                 { error: 'Trop de tentatives. Réessayez dans 1 heure.' },
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!checkRateLimit(data.email)) {
+        if (!checkRateLimit(data.email, 5, 86400000)) {
             console.warn(`Disposable email detected: ${data.email}`);
             return NextResponse.json(
                 { error: 'Veuillez utiliser une adresse email valide.' },
