@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         }
 
         const dangerousPattern = /<script|javascript:|onerror=/i;
-        if (dangerousPattern.test(data.description) || dangerousPattern.test(data.nom)) {
+        if (dangerousPattern.test(data.description) || dangerousPattern.test(data.name)) {
             return NextResponse.json(
                 { error: 'Mauvaise description' },
                 { status: 400 }
