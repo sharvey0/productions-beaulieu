@@ -8,7 +8,7 @@ import {uploadFile} from "@/lib/supabase/storage";
 import {Category} from "@/types/Category";
 import {Demo} from "@/types/Demo";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import {SubmitEventHandler, useEffect, useState} from "react";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 import {MdLibraryMusic, MdRefresh, MdCategory, MdDelete, MdEdit} from "react-icons/md";
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         fetchData();
     }, []);
 
-    const handleAddDemo = async (e: SubmitEvent) => {
+    const handleAddDemo: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         if (!audioFile || !imageFile || !newDemo.category || !newDemo.name) {
             setErrorMessage("Veuillez remplir tous les champs et sélectionner les fichiers.");
@@ -76,13 +76,13 @@ export default function DashboardPage() {
                 created_at: new Date().toISOString()
             });
 
-            if (error) throw error;
+            if (error) return error;
 
             setSuccessMessage("Démo ajoutée avec succès !");
             setNewDemo({ name: "", category: "" });
             setAudioFile(null);
             setImageFile(null);
-            refreshData();
+            await refreshData();
             setTimeout(() => setSuccessMessage(""), 3000);
         } catch (err: unknown) {
             console.error(err);
@@ -92,7 +92,7 @@ export default function DashboardPage() {
         }
     };
 
-    const handleAddCategory = async (e: React.FormEvent) => {
+    const handleAddCategory: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         if (!newCategoryLabel.trim()) return;
         setIsSubmittingCategory(true);
@@ -118,7 +118,7 @@ export default function DashboardPage() {
         if (!error) refreshData();
     };
 
-    const handleUpdateDemo = async (e: React.FormEvent) => {
+    const handleUpdateDemo: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         if (!editingDemo) return;
         
@@ -129,13 +129,13 @@ export default function DashboardPage() {
 
             if (audioFile) {
                 const { url, error } = await uploadFile(audioFile, 'demo-bucket', 'audio');
-                if (error) throw error;
+                if (error) return error;
                 audio_url = url!;
             }
 
             if (imageFile) {
                 const { url, error } = await uploadFile(imageFile, 'demo-bucket', 'img');
-                if (error) throw error;
+                if (error) return error;
                 img_url = url!;
             }
 
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                 img_url
             });
 
-            if (error) throw error;
+            if (error) return error;
 
             setSuccessMessage("Démo mise à jour avec succès !");
             setEditingDemo(null);
@@ -162,7 +162,7 @@ export default function DashboardPage() {
         }
     };
 
-    const handleUpdateCategory = async (e: React.FormEvent) => {
+    const handleUpdateCategory: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         if (!editingCategory) return;
         setIsSubmittingCategory(true);
@@ -192,29 +192,27 @@ export default function DashboardPage() {
                     </button>
                 </div>
 
-                {/* Tabs */}
                 <div className="flex space-x-4 mb-8 border-b border-white/10 overflow-x-auto whitespace-nowrap pb-1">
                     <button 
                         onClick={() => setActiveTab('demos')}
-                        className={`pb-4 px-2 flex items-center space-x-2 ${activeTab === 'demos' ? 'border-b-2 border-[var(--accent)] text-[var(--accent)]' : 'text-zinc-400'}`}
+                        className={`cursor-pointer pb-4 px-2 flex items-center space-x-2 ${activeTab === 'demos' ? 'border-b-2 border-[var(--accent)] text-[var(--accent)]' : 'text-zinc-400'}`}
                     >
                         <MdLibraryMusic /> <span>Démos</span>
                     </button>
                     <button 
                         onClick={() => setActiveTab('categories')}
-                        className={`pb-4 px-2 flex items-center space-x-2 ${activeTab === 'categories' ? 'border-b-2 border-[var(--accent)] text-[var(--accent)]' : 'text-zinc-400'}`}
+                        className={`cursor-pointer pb-4 px-2 flex items-center space-x-2 ${activeTab === 'categories' ? 'border-b-2 border-[var(--accent)] text-[var(--accent)]' : 'text-zinc-400'}`}
                     >
                         <MdCategory /> <span>Catégories</span>
                     </button>
                 </div>
 
-                {/* Content */}
                 <div className="grid grid-cols-1 gap-8">
                     
                     {activeTab === 'demos' && (
                         <div className="space-y-8">
-                            <FormCard 
-                                title="Ajouter une nouvelle démo" 
+                            <FormCard
+                                title="Ajouter une nouvelle démo"
                                 subtitle="Ajouter une nouvelle démo musicale au catalogue"
                                 isLoading={isSubmitting}
                                 isSuccess={!!successMessage}
@@ -222,10 +220,10 @@ export default function DashboardPage() {
                                 errors={errorMessage ? { api: errorMessage } : undefined}
                             >
                                 <form onSubmit={editingDemo ? handleUpdateDemo : handleAddDemo} className="space-y-4">
-                                    <FormInput 
-                                        title="Nom de la démo" 
-                                        id="name" 
-                                        value={editingDemo ? editingDemo.name : newDemo.name} 
+                                    <FormInput
+                                        title="Nom de la démo"
+                                        id="name"
+                                        value={editingDemo ? editingDemo.name : newDemo.name}
                                         onChange={(e) => editingDemo ? setEditingDemo({...editingDemo, name: e.target.value}) : setNewDemo({...newDemo, name: e.target.value})}
                                         placeholder="ex: Summer Hits 2026"
                                     />
@@ -264,7 +262,7 @@ export default function DashboardPage() {
                                         <button 
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="flex-1 bg-[var(--accent)] text-white py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                                            className="cursor-pointer flex-1 bg-[var(--accent)] text-white py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
                                         >
                                             {editingDemo ? "Mettre à jour" : "Ajouter la démo"}
                                         </button>

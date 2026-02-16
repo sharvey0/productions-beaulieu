@@ -13,6 +13,7 @@ import {Demo} from "@/types/Demo";
 
 export default function Home() {
     const emptyDemo: Demo = {
+        id: 0,
         audio_url: "",
         category: "",
         created_at: "",
