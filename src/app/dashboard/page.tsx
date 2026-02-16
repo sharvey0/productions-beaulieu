@@ -62,14 +62,12 @@ export default function DashboardPage() {
         setErrorMessage("");
 
         try {
-            const { url: audio_url, error: audioError } = await uploadFile(audioFile, 'demos_audio');
+            const { url: audio_url, error: audioError } = await uploadFile(audioFile, 'demo-bucket', 'audio');
             if (audioError) new Error("Erreur lors de l'upload de l'audio: " + audioError.message);
 
-            // 2. Upload image
-            const { url: img_url, error: imageError } = await uploadFile(imageFile, 'demos_images');
+            const { url: img_url, error: imageError } = await uploadFile(imageFile, 'demo-bucket', 'img');
             if (imageError) new Error("Erreur lors de l'upload de l'image: " + imageError.message);
-
-            // 3. Save to database
+            
             const { error } = await addDemo({
                 name: newDemo.name,
                 category: newDemo.category,
@@ -84,7 +82,6 @@ export default function DashboardPage() {
             setNewDemo({ name: "", category: "" });
             setAudioFile(null);
             setImageFile(null);
-            // Reset file inputs manually if needed, but react state should be enough for logic
             refreshData();
             setTimeout(() => setSuccessMessage(""), 3000);
         } catch (err: unknown) {
@@ -100,7 +97,7 @@ export default function DashboardPage() {
         if (!newCategoryLabel.trim()) return;
         setIsSubmittingCategory(true);
         const { error } = await addCategory(newCategoryLabel.trim());
-        setIsSubmittingCategory(true);
+        setIsSubmittingCategory(false);
         if (!error) {
             setCategorySuccessMessage("Catégorie ajoutée avec succès !");
             setNewCategoryLabel("");
@@ -131,13 +128,13 @@ export default function DashboardPage() {
             let img_url = editingDemo.img_url;
 
             if (audioFile) {
-                const { url, error } = await uploadFile(audioFile, 'demos_audio');
+                const { url, error } = await uploadFile(audioFile, 'demo-bucket', 'audio');
                 if (error) throw error;
                 audio_url = url!;
             }
 
             if (imageFile) {
-                const { url, error } = await uploadFile(imageFile, 'demos_images');
+                const { url, error } = await uploadFile(imageFile, 'demo-bucket', 'img');
                 if (error) throw error;
                 img_url = url!;
             }
