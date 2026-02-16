@@ -6,6 +6,7 @@ import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 import {Hero} from "@/components/HeroSection";
 import {MdArrowDropDown} from "react-icons/md";
+import {BookingType, BookingTypeLabels} from "@/enums/BookingType";
 
 export default function Contact() {
     const [form, setForm] = useState({
@@ -17,6 +18,7 @@ export default function Contact() {
         description: "",
     });
 
+    const [error, setError] = useState("Une erreur est survenue. Veuillez réessayer ou nous contacter à l&#39;adresse productionsbeaulieu@gmail.com.");
     const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
     function onChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) {
@@ -28,13 +30,20 @@ export default function Contact() {
         e.preventDefault();
         setStatus("sending");
 
-        await fetch('/api/send-booking-info', {
+        const response = await fetch('/api/send-booking-info', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify(form)
         });
+
+        const body = await response.json()
+
+        if (body.error) {
+            setError(body.error);
+            return setStatus("error");
+        }
 
         setStatus("sent");
     };
@@ -101,6 +110,8 @@ export default function Contact() {
                                     type="number"
                                     id="duration"
                                     name="duration"
+                                    min={1}
+                                    max={50}
                                     required
                                     value={form.duration}
                                     onChange={onChange}
@@ -123,20 +134,11 @@ export default function Contact() {
                                     className="cursor-pointer appearance-none w-full text-white bg-neutral-900 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all"
                                 >
                                     <option>Choisir</option>
-                                    <option value="mariage">Mariage</option>
-                                    <option value="vin_dhonneur">Vin d&#39;honneur / Cocktail</option>
-                                    <option value="anniversaire_enfant">Anniversaire (enfant)</option>
-                                    <option value="anniversaire_adulte">Anniversaire (adulte)</option>
-                                    <option value="evenement_corporatif">Événement corporatif</option>
-                                    <option value="lancement_produit">Lancement de produit</option>
-                                    <option value="fete_privee">Fête privée</option>
-                                    <option value="funerailles">Funérailles / Hommage</option>
-                                    <option value="bal_finissant">Bal de finissants</option>
-                                    <option value="spectacle_scolaire">Spectacle scolaire</option>
-                                    <option value="restaurant_bar">Prestation en restaurant / bar</option>
-                                    <option value="hotel">Prestation en hôtel</option>
-                                    <option value="dj_set">DJ set</option>
-                                    <option value="autre">Autre</option>
+                                    {Object.values(BookingType).map((type) => (
+                                        <option key={type} value={type}>
+                                            {BookingTypeLabels[type]}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div
                                     className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4"
@@ -187,7 +189,7 @@ export default function Contact() {
 
                         {status === "error" && (
                             <p className="text-[var(--accent)] text-center text-sm font-medium">
-                                Une erreur est survenue. Veuillez réessayer ou nous contacter à l&#39;adresse productionsbeaulieu@gmail.com.
+                                {error}
                             </p>
                         )}
                     </form>

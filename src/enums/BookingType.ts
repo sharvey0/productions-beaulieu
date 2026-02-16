@@ -1,0 +1,33 @@
+export enum BookingType {
+    MARIAGE = "mariage",
+    VIN_DHONNEUR = "vin_dhonneur",
+    ANNIVERSAIRE_ENFANT = "anniversaire_enfant",
+    ANNIVERSAIRE_ADULTE = "anniversaire_adulte",
+    EVENEMENT_CORPORATIF = "evenement_corporatif",
+    LANCEMENT_PRODUIT = "lancement_produit",
+    FETE_PRIVEE = "fete_privee",
+    FUNERAILLES = "funerailles",
+    BAL_FINISSANT = "bal_finissant",
+    SPECTACLE_SCOLAIRE = "spectacle_scolaire",
+    RESTAURANT_BAR = "restaurant_bar",
+    HOTEL = "hotel",
+    DJ_SET = "dj_set",
+    AUTRE = "autre",
+}
+
+export const BookingTypeLabels: Record<BookingType, string> = {
+    [BookingType.MARIAGE]: "Mariage",
+    [BookingType.VIN_DHONNEUR]: "Vin d'honneur / Cocktail",
+    [BookingType.ANNIVERSAIRE_ENFANT]: "Anniversaire (enfant)",
+    [BookingType.ANNIVERSAIRE_ADULTE]: "Anniversaire (adulte)",
+    [BookingType.EVENEMENT_CORPORATIF]: "Événement corporatif",
+    [BookingType.LANCEMENT_PRODUIT]: "Lancement de produit",
+    [BookingType.FETE_PRIVEE]: "Fête privée",
+    [BookingType.FUNERAILLES]: "Funérailles / Hommage",
+    [BookingType.BAL_FINISSANT]: "Bal de finissants",
+    [BookingType.SPECTACLE_SCOLAIRE]: "Spectacle scolaire",
+    [BookingType.RESTAURANT_BAR]: "Prestation en restaurant / bar",
+    [BookingType.HOTEL]: "Prestation en hôtel",
+    [BookingType.DJ_SET]: "DJ set",
+    [BookingType.AUTRE]: "Autre",
+};

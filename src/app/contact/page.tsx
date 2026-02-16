@@ -18,6 +18,7 @@ export default function Contact() {
         message: "",
     });
 
+    const [error, setError] = useState("Une erreur est survenue. Veuillez réessayer ou nous contacter à l&#39;adresse productionsbeaulieu@gmail.com.");
     const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
     function onChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
@@ -29,13 +30,20 @@ export default function Contact() {
         e.preventDefault();
         setStatus("sending");
 
-        await fetch('/api/send-question-info', {
+        const response = await fetch('/api/send-question-info', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify(form)
         });
+
+        const body = await response.json();
+
+        if (body.error) {
+            setError(body.error);
+            return setStatus("error");
+        }
 
         setStatus("sent");
     };
@@ -199,7 +207,7 @@ export default function Contact() {
 
                             {status === "error" && (
                                 <p className="text-[var(--accent)] text-center text-sm font-medium">
-                                    Une erreur est survenue. Veuillez réessayer ou nous contacter à l&#39;adresse productionsbeaulieu@gmail.com.
+                                    {error}
                                 </p>
                             )}
                         </form>
