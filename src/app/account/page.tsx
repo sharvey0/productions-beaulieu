@@ -3,32 +3,38 @@
 import * as React from "react";
 import {Header} from "@/components/Header";
 import {createClient} from "@/lib/supabase/client";
+import {User} from "@supabase/supabase-js";
 import Link from "next/link";
-import {MdArrowForward, MdDelete, MdLock, MdLogout, MdMail} from "react-icons/md";
-import {User} from "@supabase/auth-js";
-import {useEffect} from "react";
+import {MdArrowForward, MdDashboard, MdDelete, MdLock, MdLogout, MdMail} from "react-icons/md";
+import {useEffect, useState} from "react";
 
 export default function AccountPage() {
-    const [user, setUser] = React.useState<User | null>(null);
-    const [loading, setLoading] = React.useState(true);
+    const [user, setUser] = useState<User | null>(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const supabase = createClient();
 
     useEffect(() => {
-        const supabase = createClient();
-
         async function getUser() {
-            const {data: { user }, error} = await supabase.auth.getUser();
-
-            if (error || !user) {
-                console.log("No claims: " + error);
-                return;
-            }
-
+            const {data: {user}} = await supabase.auth.getUser();
             setUser(user);
-            setLoading(false);
-        }
+        };
 
+        const loadAdminFlag = async () => {
+            const {data: {user}} = await supabase.auth.getUser();
+            const { data } = await supabase
+                .from('profiles')
+                .select('is_admin')
+                .eq('id', user?.id)
+                .single();
+
+            setIsAdmin(data?.is_admin);
+            setLoading(false);
+        };
+
+        loadAdminFlag();
         getUser();
-    }, []);
+    }, [supabase]);
 
     async function handleLogout() {
         await fetch("/logout", { method: 'POST' });
@@ -75,6 +81,17 @@ export default function AccountPage() {
                                 le {new Date(user.created_at).toLocaleDateString()}</p>
 
                             <div className="space-y-3">
+                                {isAdmin && (
+                                    <Link
+                                        href="/dashboard"
+                                        className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"
+                                    >
+                                        <MdDashboard className="text-[var(--accent)] text-xl"/>
+                                        <span className="flex-1 font-medium text-left">Dashboard</span>
+                                        <MdArrowForward
+                                            className="text-neutral-500 group-hover:translate-x-1 transition-transform font-black"/>
+                                    </Link>
+                                )}
                                 <Link
                                     href="/account/update-email"
                                     className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-all group"

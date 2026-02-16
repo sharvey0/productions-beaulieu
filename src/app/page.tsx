@@ -13,6 +13,7 @@ import {Demo} from "@/types/Demo";
 
 export default function Home() {
     const emptyDemo: Demo = {
+        id: 0,
         audio_url: "",
         category: "",
         created_at: "",
@@ -131,7 +132,7 @@ export default function Home() {
                                     </button>
                                     <div>
                                         <p className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold">Dernière Démo</p>
-                                        <h3 className="text-xl md:text-3xl font-bold tracking-wide">{demo.name}</h3>
+                                        <h3 className="text-xl md:text-3xl font-bold tracking-wide truncate">{demo.name}</h3>
                                         <p className="text-gray-400 text-xs md:text-sm mt-1 uppercase tracking-widest">{demo.created_at}</p>
                                     </div>
                                 </>

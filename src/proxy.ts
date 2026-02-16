@@ -2,9 +2,10 @@ import {NextRequest, NextResponse} from "next/server";
 import {createServerClient} from "@supabase/ssr";
 
 export async function proxy(request: NextRequest) {
-    console.log("Supabase proxy called");
     let supabaseResponse = NextResponse.next({
-        request,
+        request: {
+            headers: request.headers,
+        },
     })
 
     const supabase = createServerClient(
@@ -16,11 +17,15 @@ export async function proxy(request: NextRequest) {
                     return request.cookies.getAll()
                 },
                 setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({name, value}) => request.cookies.set(name, value))
+                    cookiesToSet.forEach(({name, value}) =>
+                        request.cookies.set(name, value)
+                    )
                     supabaseResponse = NextResponse.next({
                         request,
                     })
-                    cookiesToSet.forEach(({name, value, options}) => supabaseResponse.cookies.set(name, value, options))
+                    cookiesToSet.forEach(({name, value, options}) =>
+                        supabaseResponse.cookies.set(name, value, options)
+                    )
                 },
             },
         }
@@ -38,13 +43,8 @@ export async function proxy(request: NextRequest) {
         console.error(error);
     }
 
-    console.log("claims: " + data);
-
     const user = data?.claims
     const pathname = request.nextUrl.pathname
-
-    console.log("user: " + user);
-    console.log("pathname: " + pathname);
 
     const isAllowedWhenNotConnected =
         pathname == '/' ||
@@ -57,8 +57,6 @@ export async function proxy(request: NextRequest) {
         pathname.startsWith('/book') ||
         pathname.startsWith('/api');
 
-    console.log("isAllowedWhenNotConnected: " + isAllowedWhenNotConnected);
-
     if (!user && !isAllowedWhenNotConnected) {
         const url = request.nextUrl.clone()
         url.pathname = '/login'
@@ -66,14 +64,12 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(url)
     }
 
-    const isAllowedWhenConnected =
-        !pathname.startsWith('/login') &&
-        !pathname.startsWith('/register') &&
-        !pathname.startsWith('/reset-password')
+    const isNotAllowedWhenConnected =
+        pathname.startsWith('/login') &&
+        pathname.startsWith('/register') &&
+        pathname.startsWith('/reset-password')
 
-    console.log("isAllowedWhenConnected: " + isAllowedWhenConnected);
-
-    if (user && !isAllowedWhenConnected) {
+    if (user && isNotAllowedWhenConnected) {
         const url = request.nextUrl.clone()
         url.pathname = '/'
         url.search = ''
@@ -90,6 +86,21 @@ export async function proxy(request: NextRequest) {
         url.pathname = '/account/update-password'
         url.search = ''
         return NextResponse.redirect(url)
+    }
+
+    if (pathname.startsWith('/dashboard')) {
+        const { data } = await supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', user?.sub)
+            .single();
+
+        if (!data?.is_admin) {
+            const url = request.nextUrl.clone()
+            url.pathname = '/'
+            url.search = ''
+            return NextResponse.redirect(url)
+        }
     }
 
     // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
