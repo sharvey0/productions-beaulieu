@@ -1,6 +1,6 @@
 "use client";
 
-import {FormCard} from "@/components/FormCard";
+import {FormCard} from "@/components/form/FormCard";
 import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import {createClient} from "@/lib/supabase/client";

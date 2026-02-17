@@ -1,8 +1,8 @@
 import {createResendClient} from "@/lib/resend/client";
 import {NextRequest, NextResponse} from "next/server";
-import {checkRateLimit} from "@/lib/simpleRateLimit";
+import {checkRateLimit} from "@/lib/resend/simpleRateLimit";
 import {BookingType} from "@/enums/BookingType";
-import {sanitize} from "@/lib/sanitize";
+import {sanitize} from "@/lib/resend/sanitize";
 
 const resendClient = createResendClient();
 

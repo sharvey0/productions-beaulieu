@@ -1,7 +1,7 @@
 import {createResendClient} from "@/lib/resend/client";
 import {NextRequest, NextResponse} from "next/server";
-import {checkRateLimit} from "@/lib/simpleRateLimit";
-import {sanitize} from "@/lib/sanitize";
+import {checkRateLimit} from "@/lib/resend/simpleRateLimit";
+import {sanitize} from "@/lib/resend/sanitize";
 
 const resendClient = createResendClient();
 

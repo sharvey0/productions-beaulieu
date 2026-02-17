@@ -1,6 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
-import {FormInputProps} from "@/types/FormInputProps";
+import {FormInputProps} from "@/types/form/FormInputProps";
 import {Eye, EyeOff} from "geist-icons";
 
 export function FormInput({

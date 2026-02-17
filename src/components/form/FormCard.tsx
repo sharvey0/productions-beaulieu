@@ -1,4 +1,4 @@
-import {FormCardProps} from "@/types/FormCardProps";
+import {FormCardProps} from "@/types/form/FormCardProps";
 import {getSupabaseErrorMessage} from "@/lib/supabase/utils";
 import * as React from "react";
 

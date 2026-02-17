@@ -2,7 +2,7 @@ import Link from "next/link";
 import {FaInstagram} from 'react-icons/fa';
 import {MdEmail, MdPerson} from "react-icons/md";
 import Image from "next/image";
-import {HeaderProps} from "@/types/HeaderProps";
+import {HeaderProps} from "@/types/components/HeaderProps";
 
 export function Header({showOnlyLogo = false, isTransparent = false}: HeaderProps) {
     const headerBg = isTransparent ? "bg-transparent" : "bg-black lg:bg-transparent";

@@ -2,8 +2,8 @@
 
 import React from "react";
 import {createClient} from "@/lib/supabase/client";
-import {FormCard} from "@/components/FormCard";
-import {FormInput} from "@/components/FormInput";
+import {FormCard} from "@/components/form/FormCard";
+import {FormInput} from "@/components/form/FormInput";
 
 export default function RegisterPage() {
     const [form, setForm] = React.useState({

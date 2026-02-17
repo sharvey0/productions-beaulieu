@@ -1,7 +1,7 @@
 "use client";
 
-import {FormCard} from "@/components/FormCard";
-import {FormInput} from "@/components/FormInput";
+import {FormCard} from "@/components/form/FormCard";
+import {FormInput} from "@/components/form/FormInput";
 import {addCategory, deleteCategory, loadAllCategories, updateCategory} from "@/database/CategoryDAO";
 import {addDemo, deleteDemo, loadAllDemo, updateDemo} from "@/database/DemoDAO";
 import {uploadFile} from "@/lib/supabase/storage";

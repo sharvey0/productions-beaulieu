@@ -1,6 +1,6 @@
 import * as React from "react";
 import Image from "next/image";
-import {HeroProps} from "@/types/HeroProps";
+import {HeroProps} from "@/types/components/HeroProps";
 
 export function Hero({title, subtitle}: HeroProps) {
     return (

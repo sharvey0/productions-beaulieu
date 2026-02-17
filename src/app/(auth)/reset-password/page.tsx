@@ -2,8 +2,8 @@
 
 import {createClient} from "@/lib/supabase/client";
 import * as React from "react";
-import {FormCard} from "@/components/FormCard";
-import {FormInput} from "@/components/FormInput";
+import {FormCard} from "@/components/form/FormCard";
+import {FormInput} from "@/components/form/FormInput";
 import Link from "next/link";
 
 
