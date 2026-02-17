@@ -43,7 +43,11 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-6">Documents légaux</h4>
                         <ul className="space-y-4 text-sm text-zinc-400">
-                            <li><Link href="/politique-de-confidentialite" className="hover:text-[var(--accent)] transition-colors">Politique de confidentialité</Link>
+                            <li>
+                                <Link href="/politique-de-confidentialite" className="hover:text-[var(--accent)] transition-colors">Politique de confidentialité</Link>
+                            </li>
+                            <li>
+                                <Link href="/conditions-dutilisation" className="hover:text-[var(--accent)] transition-colors">Conditions d&#39;utilisation</Link>
                             </li>
                         </ul>
                     </div>
