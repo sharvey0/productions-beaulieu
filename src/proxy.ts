@@ -49,7 +49,6 @@ export async function proxy(request: NextRequest) {
     const isAllowedWhenNotConnected =
         pathname == '/' ||
         pathname.startsWith('/login') ||
-        pathname.startsWith('/register') ||
         pathname.startsWith('/reset-password') ||
         pathname.startsWith('/auth') ||
         pathname.startsWith('/demo') ||
@@ -65,8 +64,8 @@ export async function proxy(request: NextRequest) {
     }
 
     const isNotAllowedWhenConnected =
-        pathname.startsWith('/login') &&
-        pathname.startsWith('/register') &&
+        pathname.startsWith('/login') ||
+        pathname.startsWith('/register') ||
         pathname.startsWith('/reset-password')
 
     if (user && isNotAllowedWhenConnected) {

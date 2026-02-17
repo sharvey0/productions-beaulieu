@@ -114,14 +114,6 @@ export function LoginPageContent() {
                 >
                     Se connecter
                 </button>
-
-                <p className="text-center text-sm text-zinc-400">
-                    Vous n&#39;avez pas de compte ?{" "}
-                    <a href="/register"
-                       className="font-medium text-white hover:text-[var(--accent)] underline underline-offset-4 transition-colors">
-                        S&#39;inscrire
-                    </a>
-                </p>
             </form>
         </FormCard>
     )
