@@ -94,7 +94,7 @@ export default function Demo() {
         <div className="min-h-screen bg-black text-white">
             <Header/>
             <Hero title="Nos Démos"
-                  subtitle="Découvrez notre univers musical à travers une sélection de nos meilleures performances."/>
+                  subtitle="Découvrez notre univers musical à travers une sélection de nos démos."/>
 
             {!loading && Object.keys(groupedDemos).length > 0 && (
                 <nav className="sticky top-0 z-40 bg-black/80 backdrop-blur-md border-y border-white/10 py-4">

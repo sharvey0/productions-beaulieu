@@ -1,7 +1,31 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import {useEffect, useState} from "react";
+import {Category} from "@/types/Category";
+import {loadAllCategories} from "@/database/CategoryDAO";
 
 export function AboutUs() {
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const data = await loadAllCategories();
+            if (data) {
+                setCategories(data.slice(0, 4));
+            }
+        };
+        void fetchCategories();
+    }, []);
+
+    const staticImages = [
+        "/img/jazz.jpg",
+        "/img/pop.jpg",
+        "/img/noel.jpg",
+        "/img/jeux_video.jpg"
+    ];
+
     return (
         <section className="relative z-10 w-full bg-zinc-950 py-24 px-6 lg:px-12" id="about-us">
             <div className="max-w-7xl mx-auto">
@@ -61,17 +85,12 @@ export function AboutUs() {
                     <h2 className="text-[var(--accent)] uppercase tracking-[0.3em] text-sm font-bold mb-12 text-center">Nos
                         Styles</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            {name: "Jazz & Blues", img: "/img/jazz.jpg"},
-                            {name: "Pop & Rock", img: "/img/pop.jpg"},
-                            {name: "Classique & Noël", img: "/img/noel.jpg"},
-                            {name: "Musique de films & Jeux Vidéo", img: "/img/jeux_video.jpg"}
-                        ].map((style, idx) => (
-                            <Link key={idx} href="/demo"
+                        {categories.map((category, idx) => (
+                            <Link key={category.id} href="/demo"
                                   className="relative h-64 group overflow-hidden rounded-xl border border-white/5">
                                 <Image
-                                    src={style.img}
-                                    alt={style.name}
+                                    src={staticImages[idx % staticImages.length]}
+                                    alt={category.label}
                                     fill
                                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                                     style={{objectFit: 'cover'}}
@@ -80,7 +99,7 @@ export function AboutUs() {
                                 <div
                                     className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                                 <div className="absolute bottom-6 left-6">
-                                    <p className="text-white font-bold uppercase tracking-widest text-sm">{style.name}</p>
+                                    <p className="text-white font-bold uppercase tracking-widest text-sm">{category.label}</p>
                                 </div>
                             </Link>
                         ))}
