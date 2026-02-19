@@ -17,6 +17,7 @@ export default function Home() {
         category: "",
         created_at: "",
         img_url: "",
+        description: "",
         name: "Inconnue"
     }
     const [demo, setDemo] = useState<Demo>(emptyDemo);

@@ -131,11 +131,16 @@ export default function Demo() {
                                 }}
                                 className="scroll-mt-40"
                             >
-                                <div className="flex items-center gap-6 mb-12">
-                                    <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wider">
-                                        {category.label}
-                                    </h2>
-                                    <div className="flex-1 h-px bg-white/10"></div>
+                                <div className="flex flex-col md:flex-row md:items-center gap-6 mb-12">
+                                    <div className="flex-1 min-w-0">
+                                        <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wider break-words">
+                                            {category.label}
+                                        </h2>
+                                        <p className="my-3 text-zinc-400 whitespace-pre-wrap break-words">
+                                            {category.description}
+                                        </p>
+                                    </div>
+                                    <div className="hidden md:block flex-1 h-px bg-white/10"></div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -144,7 +149,7 @@ export default function Demo() {
                                             key={demo.name}
                                             className="group bg-zinc-900/40 border border-white/5 rounded-xl overflow-hidden hover:border-[var(--accent)]/30 transition-all duration-500"
                                         >
-                                            <div className="flex flex-col sm:flex-row h-full">
+                                            <div className="flex flex-col sm:flex-row h-full min-h-[300px] sm:min-h-0">
                                                 <div
                                                     className="relative w-full sm:w-40 h-48 sm:h-full bg-zinc-800 flex-shrink-0 overflow-hidden">
                                                     <Image
@@ -156,14 +161,17 @@ export default function Demo() {
                                                         className="grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
                                                     />
                                                 </div>
-                                                <div className="flex-1 p-6 flex flex-col justify-between gap-6">
-                                                    <div>
+                                                <div className="flex-1 p-6 flex flex-col justify-between gap-6 min-w-0">
+                                                    <div className="min-w-0">
                                                         <p className="text-[var(--accent)] text-[10px] uppercase tracking-[0.2em] font-bold mb-1">Extrait
                                                             Audio</p>
-                                                        <h3 className="text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors line-clamp-1">
+                                                        <h3 className="text-xl font-bold text-white group-hover:text-[var(--accent)] transition-colors break-words">
                                                             {demo.name}
                                                         </h3>
-                                                        <p className="text-zinc-400 text-xs mt-1">{new Date(demo.created_at).toLocaleDateString("fr-FR", {
+                                                        <p className="mt-1 text-zinc-400 whitespace-pre-wrap break-words">
+                                                            {demo.description}
+                                                        </p>
+                                                        <p className="text-zinc-500 text-xs mt-1">{new Date(demo.created_at).toLocaleDateString("fr-FR", {
                                                             day: "2-digit",
                                                             month: "long",
                                                             year: "numeric"

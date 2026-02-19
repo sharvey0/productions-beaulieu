@@ -15,10 +15,10 @@ export async function loadAllCategories() {
     return data as Array<Category>;
 }
 
-export async function addCategory(label: string) {
+export async function addCategory(label: string, description: string = "") {
     const { data, error } = await supabase
         .from("categories")
-        .insert([{ label }])
+        .insert([{ label, description }])
         .select();
 
     if (error) {
@@ -29,10 +29,10 @@ export async function addCategory(label: string) {
     return { data };
 }
 
-export async function updateCategory(id: number, label: string) {
+export async function updateCategory(id: number, label: string, description: string) {
     const { data, error } = await supabase
         .from("categories")
-        .update({ label })
+        .update({ label, description })
         .eq('id', id)
         .select();
 
