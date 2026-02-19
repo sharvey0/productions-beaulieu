@@ -20,6 +20,7 @@ export default function DashboardPage() {
 
     const [newDemo, setNewDemo] = useState({
         name: "",
+        description: "",
         category: ""
     });
     const [audioFile, setAudioFile] = useState<File | null>(null);
@@ -48,6 +49,7 @@ export default function DashboardPage() {
     }
 
     const [newCategoryLabel, setNewCategoryLabel] = useState("");
+    const [newCategoryDescription, setNewCategoryDescription] = useState("");
     const [isSubmittingCategory, setIsSubmittingCategory] = useState(false);
     const [categorySuccessMessage, setCategorySuccessMessage] = useState("");
 
@@ -89,6 +91,7 @@ export default function DashboardPage() {
             
             const { error } = await addDemo({
                 name: newDemo.name,
+                description: newDemo.description,
                 category: newDemo.category,
                 audio_url: audio_url!,
                 img_url: img_url!,
@@ -98,7 +101,7 @@ export default function DashboardPage() {
             if (error) return error;
 
             setSuccessMessage("Démo ajoutée avec succès !");
-            setNewDemo({ name: "", category: "" });
+            setNewDemo({ name: "", description: "", category: "" });
             setAudioFile(null);
             setImageFile(null);
             await refreshData();
@@ -115,11 +118,12 @@ export default function DashboardPage() {
         e.preventDefault();
         if (!newCategoryLabel.trim()) return;
         setIsSubmittingCategory(true);
-        const { error } = await addCategory(newCategoryLabel.trim());
+        const { error } = await addCategory(newCategoryLabel.trim(), newCategoryDescription.trim());
         setIsSubmittingCategory(false);
         if (!error) {
             setCategorySuccessMessage("Catégorie ajoutée avec succès !");
             setNewCategoryLabel("");
+            setNewCategoryDescription("");
             refreshData();
             setTimeout(() => setCategorySuccessMessage(""), 3000);
         }
@@ -160,6 +164,7 @@ export default function DashboardPage() {
 
             const { error } = await updateDemo(editingDemo.id, {
                 name: editingDemo.name,
+                description: editingDemo.description,
                 category: editingDemo.category,
                 audio_url,
                 img_url
@@ -185,7 +190,7 @@ export default function DashboardPage() {
         e.preventDefault();
         if (!editingCategory) return;
         setIsSubmittingCategory(true);
-        const { error } = await updateCategory(editingCategory.id, editingCategory.label);
+        const { error } = await updateCategory(editingCategory.id, editingCategory.label, editingCategory.description);
         setIsSubmittingCategory(false);
         if (!error) {
             setCategorySuccessMessage("Catégorie mise à jour !");
@@ -246,6 +251,16 @@ export default function DashboardPage() {
                                         onChange={(e) => editingDemo ? setEditingDemo({...editingDemo, name: e.target.value}) : setNewDemo({...newDemo, name: e.target.value})}
                                         placeholder="ex: Moanin'"
                                     />
+                                    <div>
+                                        <label className="text-sm font-medium text-white mb-1 block">Description</label>
+                                        <textarea
+                                            value={editingDemo ? editingDemo.description : newDemo.description}
+                                            onChange={(e) => editingDemo ? setEditingDemo({...editingDemo, description: e.target.value}) : setNewDemo({...newDemo, description: e.target.value})}
+                                            placeholder="Description de la démo..."
+                                            rows={3}
+                                            className="w-full rounded-lg border border-white/20 bg-black px-3 py-2 text-white outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all resize-none"
+                                        />
+                                    </div>
                                     <div>
                                         <label className="text-sm font-medium text-white mb-1 block">Fichier Audio {editingDemo && "(laisser vide pour conserver l'actuel)"}</label>
                                         <input 
@@ -368,6 +383,16 @@ export default function DashboardPage() {
                                         onChange={(e) => editingCategory ? setEditingCategory({...editingCategory, label: e.target.value}) : setNewCategoryLabel(e.target.value)}
                                         placeholder="ex: Jazz, Rock, Événementiel"
                                     />
+                                    <div>
+                                        <label className="text-sm font-medium text-white mb-1 block">Description</label>
+                                        <textarea
+                                            value={editingCategory ? editingCategory.description : newCategoryDescription}
+                                            onChange={(e) => editingCategory ? setEditingCategory({...editingCategory, description: e.target.value}) : setNewCategoryDescription(e.target.value)}
+                                            placeholder="Description de la catégorie..."
+                                            rows={3}
+                                            className="w-full rounded-lg border border-white/20 bg-black px-3 py-2 text-white outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all resize-none"
+                                        />
+                                    </div>
                                     <div className="flex gap-2">
                                         <button 
                                             type="submit"
