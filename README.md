@@ -7,6 +7,11 @@ This project is a modern full-stack web application built with scalability, secu
 
 ---
 
+## Live Website
+https://prodbeaulieu.com
+
+---
+
 ## Features
 
 - Event booking request form
